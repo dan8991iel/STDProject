@@ -12,7 +12,10 @@ db.once('open', () => console.log('Connected to database'))
 
 app.use(express.json())
 
-const booksRouter = require('./routes/api/v0.1/books')
+const booksRouter = require('./routes/api/v1/books')
 app.use('/books', booksRouter)
+
+const authorsRouter = require('./routes/api/v1/authors.js')
+app.use('/authors', authorsRouter)
 
 app.listen(3000, () => console.log('Server started'))
