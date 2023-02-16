@@ -4,7 +4,6 @@
   "description": "FHDW | WTA | BFWS420A | Library REST API",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
     "devStart": "nodemon server.js"
   },
   "repository": {
@@ -19,11 +18,11 @@
   },
   "homepage": "https://github.com/timok181/WTA-REST#readme",
   "dependencies": {
-    "ejs": "^3.1.8",
     "express": "^4.18.2",
-    "express-ejs-layouts": "^2.5.1"
+    "mongoose": "^6.9.1"
   },
   "devDependencies": {
+    "dotenv": "^16.0.3",
     "nodemon": "^2.0.20"
   }
 }
