@@ -1,0 +1,29 @@
+{
+  "name": "wta-rest",
+  "version": "1.0.0",
+  "description": "FHDW | WTA | BFWS420A | Library REST API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "devStart": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timok181/WTA-REST.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timok181/WTA-REST/issues"
+  },
+  "homepage": "https://github.com/timok181/WTA-REST#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
