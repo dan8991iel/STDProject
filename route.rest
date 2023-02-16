@@ -1,0 +1,13 @@
+GET http://127.0.0.1:3000/books
+
+###
+
+POST http://127.0.0.1:3000/books
+
+###
+
+POST http://127.0.0.1:3000/authors
+
+###
+
+GET http://127.0.0.1:3000/authors/63ee914cd5404ca4f233fc8d
