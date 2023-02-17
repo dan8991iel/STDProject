@@ -3,7 +3,7 @@ const router = express.Router()
 const Author = require ('../../models/author')
 
 //Getting all
-router.get('/', async (reg, res) =>{
+router.get('/', async (req, res) =>{
     try{
         const author = await Author.find()
         res.status(200).json(author)
@@ -13,15 +13,16 @@ router.get('/', async (reg, res) =>{
 })
 
 //Getting one
-router.get('/:id', getAuthor, async (reg, res) =>{
+router.get('/:id', getAuthor, async (req, res) =>{
     res.json(res.author)
 })
 
 //Creating one
-router.post('/', async (reg, res) =>{
+router.post('/', async (req, res) =>{
     const author = new Author({
+        _id: 999, // only temporary, is overwritten pre-save
         "name.firstName": req.body.name.firstName,
-        "name.surname": req.body.name.s,
+        "name.surname": req.body.name.surname,
         publications: req.body.publications
     })
 
@@ -34,7 +35,7 @@ router.post('/', async (reg, res) =>{
 })
 
 //Update one
-router.patch('/:id', getAuthor, async (reg, res) =>{
+router.patch('/:id', getAuthor, async (req, res) =>{
     if(req.body.name != null){
         if(req.body.name.firstName != null){
             res.author.name.firstName = req.body.name.firstName
@@ -57,22 +58,22 @@ router.patch('/:id', getAuthor, async (reg, res) =>{
 })
 
 //Delete one
-router.delete('/:id', getAuthor, async (reg, res) =>{
+router.delete('/:id', getAuthor, async (req, res) =>{
     try{
         await res.author.remove()
-        res.json({message: 'Deleted Subscriber'})
+        res.json({message: 'Deleted author'})
     }
     catch(error){
         res.status(500).json({message: error.message})
     }
 })
 
-async function getAuthor (reg, res, next){
+async function getAuthor (req, res, next){
     let author
     try{
-        author = await Author.find(reg.params.id)
+        author = await Author.find(req.params.id)
         if(author == null){
-            return res.status(404).json({message: 'Cannot find Author'})
+            return res.status(404).json({message: 'Cannot find author'})
         }
     }catch(error){
         return res.status(500).json({message: error.message})
