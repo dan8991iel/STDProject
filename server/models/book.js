@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
+const autoIncrementModelID = require('./counter')
 
 const bookSchema = new mongoose.Schema( {
     _id: {
-        type: Number, // TODO auto increment
+        type: Number,
         required: true,
     },
     isbn: {
@@ -37,6 +38,15 @@ const bookSchema = new mongoose.Schema( {
         max: 2,
         required: false
     }
+})
+
+bookSchema.pre('save', function (next) {
+  if (!this.isNew) {
+    next()
+    return
+  }
+
+  autoIncrementModelID('books', this, next)
 })
 
 module.exports = mongoose.model('Book', bookSchema)
