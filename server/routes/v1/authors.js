@@ -64,6 +64,7 @@ router.delete('/:id', getAuthor, async (req, res) =>{
         
         if(res.author == null){
             res.status(200).json({message: "Object not existing"})
+            return
         }
         await res.author.remove()
         res.json({message: 'Deleted author'})
