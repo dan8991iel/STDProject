@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const autoIncrementModelID = require('./counter')
-const Book = require('./books')
+const Book = require('./book')
 
 const authorSchema = new mongoose.Schema( {
     _id: {
@@ -19,7 +19,11 @@ const authorSchema = new mongoose.Schema( {
     },
     publications: [{
         type: Number, ref: 'Book', required: false
-    }]
+    }],
+    link: {
+        type: String, 
+        required: false
+    }
         
     
 })
@@ -32,5 +36,11 @@ authorSchema.pre('save', function (next) {
 
   autoIncrementModelID('authors', this, next)
 })
+
+authorSchema.post('save', function (doc) {
+    doc.link = `/authors/${doc._id}`;
+    // Save the updated author document
+     doc.save();
+  })
 
 module.exports = mongoose.model('Author', authorSchema)

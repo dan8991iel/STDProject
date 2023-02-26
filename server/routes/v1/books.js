@@ -5,7 +5,7 @@ const Book = require('../../models/book')
 //Getting all
 router.get('/', async (req, res) =>{
     try{
-        const books = await Book.find()
+        const books = await Book.find().populate('authors')
         res.status(200).json(books)
     }catch(error){
         res.status(500).json({message: error.message})
@@ -63,7 +63,7 @@ router.patch('/:id', getBook, async (req, res) =>{
     }
     
     try{
-        const updatedBook = await res.book.save().populate()
+        const updatedBook = await res.book.save()
         res.json(updatedBook)
     }
     catch(error){
@@ -89,8 +89,10 @@ async function getBook (req, res, next){
     let book
     try{
         console.log(req.params.id);
-        book = await Book.find({"_id":req.params.id}).populate('authors')
-        console.log(book);
+        book = await Book.find({"_id":req.params.id}).populate('authors')  
+        
+        console.log(book)
+        
         if(book == null){
             return res.status(404).json({message: 'Cannot find book'})
         }

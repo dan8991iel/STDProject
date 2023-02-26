@@ -23,7 +23,8 @@ router.post('/', async (req, res) =>{
         _id: 999, // only temporary, is overwritten pre-save
         "name.firstName": req.body.name.firstName,
         "name.surname": req.body.name.surname,
-        publications: req.body.publications
+        publications: req.body.publications,
+        link: "null"
     })
 
     try{
