@@ -21,7 +21,7 @@ const bookSchema = new mongoose.Schema( {
     authors: {
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "Author",
-        required: true
+        required: false
     },
     edition: {
         type: Number,
@@ -33,7 +33,7 @@ const bookSchema = new mongoose.Schema( {
         required: false
     },
     status: {
-        type: String,
+        type: Number,
         min: 0,
         max: 2,
         required: false

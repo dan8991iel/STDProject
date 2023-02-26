@@ -30,10 +30,11 @@ POST http://127.0.0.1:3000/books
 Content-Type: application/json
 
 {
-    "isbn": "978-1-4842-3714-4",
-    "title": "REST API Development with Node.js",
+    "isbn": "922-1-48222-3714-4",
+    "title": "REST",
     "category": "Education",
-    "authors": [1, 2]//,
-    //"releaseYear": 2018,
-    //"status": "0"
+    //"authors": [1, 2]//,
+    "edition": 2,
+    "releaseYear": 2023,
+    "status": "0"
 }
