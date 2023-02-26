@@ -11,14 +11,14 @@ Content-Type: application/json
 
 {
     "name": {
-        "firstName": "Mr.",
-        "surname": "Bean"
+        "firstName": "Fernando",
+        "surname": "Doglio"
     }
 }
 
 ###
 
-DELETE http://127.0.0.1:3000/books/1
+GET http://127.0.0.1:3000/counter
 
 ###
 
@@ -30,15 +30,46 @@ GET http://127.0.0.1:3000/books/1
 
 ###
 
+DELETE http://127.0.0.1:3000/books/7
+###
+
+
+DELETE http://127.0.0.1:3000/authors/1
+###
+
 POST http://127.0.0.1:3000/books
 Content-Type: application/json
 
 {
-    "isbn": "922-1-48222-3714-4",
-    "title": "REST",
+    "isbn": "978-1-4842-3714-4",
+    "title": "REST API Development with Node.js",
+    "category": "Education",
+    "authors": [1],
+    "edition": 1,
+    "releaseYear": 2018,
+    "status": "0"
+}
+
+###
+
+PATCH http://127.0.0.1:3000/books/2
+Content-Type: application/json
+
+{
+    "authorId": 1
+}
+
+###
+
+POST http://127.0.0.1:3000/books
+Content-Type: application/json
+
+{
+    "isbn": "978-1-4842-2665-0",
+    "title": "Pro RESTful APIs",
     "category": "Education",
     //"authors": [1, 2]//,
-    "edition": 2,
-    "releaseYear": 2023,
+    "edition": 1,
+    "releaseYear": 2017,
     "status": "0"
 }

@@ -16,7 +16,8 @@ fetch('http://127.0.0.1:3000/books',{method:"GET"})
       tile.appendChild(isbn);
 
       const authors = document.createElement('p');
-      authors.textContent = 'Authors: ' + book.authors.join(', ');
+      //authors.textContent = 'Authors: ' + book.authors.join(', ');
+      authors.textContent = 'AuthorIds: ' + book.authorIds;
       tile.appendChild(authors);
 
       const releaseYear = document.createElement('p');
@@ -24,7 +25,7 @@ fetch('http://127.0.0.1:3000/books',{method:"GET"})
       tile.appendChild(releaseYear);
 
       tile.addEventListener('click', () => {
-        window.location.href = `/books/${book._id}`;
+        window.location.href = window.location.protocol + "//" + window.location.hostname + ":3000"+`/books/${book._id}`
       });
 
       tilegrid.appendChild(tile);

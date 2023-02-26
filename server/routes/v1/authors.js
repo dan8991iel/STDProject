@@ -60,6 +60,10 @@ router.patch('/:id', getAuthor, async (req, res) =>{
 //Delete one
 router.delete('/:id', getAuthor, async (req, res) =>{
     try{
+        
+        if(res.author == null){
+            res.status(200).json({message: "Object not existing"})
+        }
         await res.author.remove()
         res.json({message: 'Deleted author'})
     }
@@ -71,14 +75,14 @@ router.delete('/:id', getAuthor, async (req, res) =>{
 async function getAuthor (req, res, next){
     let author
     try{
-        author = await Author.find(req.params.id)
+        author = await Author.find({"_id":req.params.id})
         if(author == null){
             return res.status(404).json({message: 'Cannot find author'})
         }
     }catch(error){
         return res.status(500).json({message: error.message})
     }
-    res.author = author
+    res.author = author[0]
     next()
 }
 

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Author = require('./author')
 const autoIncrementModelID = require('./counter')
 
 const bookSchema = new mongoose.Schema( {
@@ -18,11 +19,10 @@ const bookSchema = new mongoose.Schema( {
         type: String,
         required: true
     },
-    authors: {
-        type: [mongoose.SchemaTypes.ObjectId],
-        ref: "Author",
-        required: false
-    },
+    authors: [{
+        type: Number, ref: 'Author', required: false
+    }]
+    ,
     edition: {
         type: Number,
         required: false

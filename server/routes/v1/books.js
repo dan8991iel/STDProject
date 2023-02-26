@@ -63,7 +63,7 @@ router.patch('/:id', getBook, async (req, res) =>{
     }
     
     try{
-        const updatedBook = await res.book.save()
+        const updatedBook = await res.book.save().populate()
         res.json(updatedBook)
     }
     catch(error){
@@ -74,6 +74,9 @@ router.patch('/:id', getBook, async (req, res) =>{
 //Delete one
 router.delete('/:id', getBook, async (req, res) =>{
     try{
+        if(res.book == null){
+            res.status(200).json({message: "Object not existing"})
+        }
         await res.book.remove()
         res.json({message: 'Deleted book'})
     }
@@ -86,7 +89,7 @@ async function getBook (req, res, next){
     let book
     try{
         console.log(req.params.id);
-        book = await Book.find({"_id":req.params.id})
+        book = await Book.find({"_id":req.params.id}).populate('authors')
         console.log(book);
         if(book == null){
             return res.status(404).json({message: 'Cannot find book'})
@@ -94,7 +97,7 @@ async function getBook (req, res, next){
     }catch(error){
         return res.status(500).json({message: error.message})
     }
-    res.book = book
+    res.book = book[0]
     next()
 }
 

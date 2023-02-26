@@ -1,35 +1,100 @@
-header {
-    text-align: center;
-  }
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background: url('https://source.unsplash.com/featured/?library') no-repeat center center fixed;
+  background-size: cover;
+}
+
+main {
+  flex-grow: 1;
+}
+
+
+nav{
+  width: 100%;
+
+}
+
+.nav-wrapper {
+  min-height: 64px; /* add this line */
+  width: 100%;
+}
+
+.pagetitle{
+  width: 100%;
+}
+
+
+.tilegridBackground {
+  min-height: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.tilegrid {
+  margin: 0 auto;
+  display: grid;
   
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  max-width: 100%;
+  grid-gap: 1em;
+  padding: 1em;
+  height: 100%;
+  position: relative;
+  top: 0;
+}
+
+.tile {
+  background-color: #fff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  padding: 2em; /* change the value of padding to adjust the height of the tile */
+  cursor: pointer;
+}
+
+.tile h2 {
+  font-size: 1.4rem;
+  margin-top: 0;
+}
+
+.tile p {
+  margin: 0;
+  margin-bottom: 1.2em;
+}
+
+/*@media (min-width: 0px) {
   .tilegrid {
-    margin: 0 auto;
-    max-width: 960px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: 1em;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    max-width: 100%;
   }
-  
-  .tile {
-    background-color: #fff;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-    border-radius: 3px;
-    padding: 1em;
-    cursor: pointer;
-  }
-  
-  .tile h2 {
-    font-size: 1.2rem;
-    margin-top: 0;
-  }
-  
-  .tile p {
-    margin: 0;
-    margin-bottom: 1em;
-  }
-  
-  @media (min-width: 768px) {
-    .tilegrid {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
+}*/
+
+.page-footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+}
+
+.page-footer p {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.footerText{
+  font-size: 1.2rem;
+}
+
+
+
+
