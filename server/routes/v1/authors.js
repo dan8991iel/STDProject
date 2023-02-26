@@ -79,6 +79,7 @@ async function getAuthor (req, res, next){
         return res.status(500).json({message: error.message})
     }
     res.author = author
+    next()
 }
 
 module.exports = router
