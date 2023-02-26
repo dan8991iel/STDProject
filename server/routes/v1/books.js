@@ -76,6 +76,7 @@ router.delete('/:id', getBook, async (req, res) =>{
     try{
         if(res.book == null){
             res.status(200).json({message: "Object not existing"})
+            return
         }
         await res.book.remove()
         res.json({message: 'Deleted book'})
