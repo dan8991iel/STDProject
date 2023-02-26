@@ -1,11 +1,14 @@
+# Get authors collection
 GET http://127.0.0.1:3000/authors
 
 ###
 
-GET http://127.0.0.1:3000/authors/2
+# Get single author
+GET http://127.0.0.1:3000/authors/1
 
 ###
 
+# Create new author
 POST http://127.0.0.1:3000/authors
 Content-Type: application/json
 
@@ -18,25 +21,22 @@ Content-Type: application/json
 
 ###
 
-GET http://127.0.0.1:3000/counter
+# Delete single author
+DELETE http://127.0.0.1:3000/authors/1
 
 ###
 
+# Get books collection
 GET http://127.0.0.1:3000/books
 
 ###
 
+# Get single book
 GET http://127.0.0.1:3000/books/1
 
 ###
 
-DELETE http://127.0.0.1:3000/books/7
-###
-
-
-DELETE http://127.0.0.1:3000/authors/1
-###
-
+# Create new book
 POST http://127.0.0.1:3000/books
 Content-Type: application/json
 
@@ -52,15 +52,7 @@ Content-Type: application/json
 
 ###
 
-PATCH http://127.0.0.1:3000/books/1
-Content-Type: application/json
-
-{
-    "authors": 2
-}
-
-###
-
+# Create new book
 POST http://127.0.0.1:3000/books
 Content-Type: application/json
 
@@ -73,3 +65,18 @@ Content-Type: application/json
     "releaseYear": 2017,
     "status": "0"
 }
+
+###
+
+# Update single book (add author)
+PATCH http://127.0.0.1:3000/books/1
+Content-Type: application/json
+
+{
+    "authorId": 1
+}
+
+###
+
+# Delete single book
+DELETE http://127.0.0.1:3000/books/1
