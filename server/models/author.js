@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const autoIncrementModelID = require('./counter')
+const Book = require('./books')
 
 const authorSchema = new mongoose.Schema( {
     _id: {
@@ -16,11 +17,11 @@ const authorSchema = new mongoose.Schema( {
             required: true
         }
     },
-    publications: {
-        type: [mongoose.SchemaTypes.ObjectId],
-        ref: "Book",
-        required: false
-    }
+    publications: [{
+        type: Number, ref: 'Book', required: false
+    }]
+        
+    
 })
 
 authorSchema.pre('save', function (next) {
