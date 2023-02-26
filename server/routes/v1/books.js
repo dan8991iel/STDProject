@@ -25,7 +25,8 @@ router.post('/', async (req, res) =>{
         title: req.body.title,
         category: req.body.category,
         authors: req.body.authors,
-        edition: req.body.releaseYear,
+        edition: req.body.edition,
+        releaseYear: req.body.releaseYear,
         status: req.body.status
     })
 
@@ -84,7 +85,9 @@ router.delete('/:id', getBook, async (req, res) =>{
 async function getBook (req, res, next){
     let book
     try{
-        book = await Book.find(req.params.id)
+        console.log(req.params.id);
+        book = await Book.find({"_id":req.params.id})
+        console.log(book);
         if(book == null){
             return res.status(404).json({message: 'Cannot find book'})
         }
@@ -92,6 +95,7 @@ async function getBook (req, res, next){
         return res.status(500).json({message: error.message})
     }
     res.book = book
+    next()
 }
 
 module.exports = router
