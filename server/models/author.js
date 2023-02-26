@@ -18,7 +18,9 @@ const authorSchema = new mongoose.Schema( {
         }
     },
     publications: [{
-        type: Number, ref: 'Book', required: false
+        type: Number,
+        ref: 'Book',
+        required: false
     }],
     link: {
         type: String, 
@@ -40,7 +42,7 @@ authorSchema.pre('save', function (next) {
 authorSchema.post('save', function (doc) {
     doc.link = `/authors/${doc._id}`;
     // Save the updated author document
-     doc.save();
+    doc.save();
   })
 
 module.exports = mongoose.model('Author', authorSchema)

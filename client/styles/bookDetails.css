@@ -1,0 +1,131 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background: url('https://source.unsplash.com/featured/?library') no-repeat center center fixed;
+    background-size: cover;
+}
+
+main {
+    flex-grow: 1;
+}
+
+nav{
+    width: 100%;
+}
+
+.nav-wrapper {
+    min-height: 64px; /* add this line */
+    width: 100%;
+}
+
+.pagetitle{
+    width: 100%;
+}
+
+.containerBackground {
+    min-height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    /*background-color: rgba(255, 255, 255, 0.5);*/
+}
+
+.container {
+    margin: 0 auto;
+    display: grid;
+    
+    max-width: 100%;
+    grid-gap: 1em;
+    padding: 1em;
+    height: 100%;
+    position: relative;
+    top: 0;
+}
+
+.bookTitle {
+    display: block;
+    padding: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    color: rgb(43, 43, 43);
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.book-details {
+    max-width: 800px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 1em;
+    border-radius: 3px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.book-details h1 {
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+.book-details p {
+    font-size: 1.3rem;
+    margin-bottom: 1em;
+}
+
+.book-details ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.book-details ul li {
+    margin-bottom: 0.5em;
+}
+
+.book-details ul li strong {
+    font-weight: bold;
+    margin-right: 0.5em;
+}
+
+.back-button {
+    background-color: #f2f2f2;
+    border: none;
+    color: #333;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .back-button:hover {
+    background-color: #ddd;
+  }  
+
+.page-footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.page-footer p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.footerText{
+    font-size: 1.2rem;
+}

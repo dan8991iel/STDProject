@@ -1,3 +1,13 @@
+# Get options for authors resource
+OPTIONS http://127.0.0.1:3000/authors
+
+###
+
+# Get headers for a single author
+HEAD http://127.0.0.1:3000/authors/1
+
+###
+
 # Get authors collection
 GET http://127.0.0.1:3000/authors
 
@@ -14,15 +24,25 @@ Content-Type: application/json
 
 {
     "name": {
-        "firstName": "Fernando",
-        "surname": "Doglio"
+        "firstName": "Thomas",
+        "surname": "Gottschalk"
     }
 }
 
 ###
 
 # Delete single author
-DELETE http://127.0.0.1:3000/authors/1
+DELETE http://127.0.0.1:3000/authors/3
+
+###
+
+# Get options for books resource
+OPTIONS http://127.0.0.1:3000/books
+
+###
+
+# Get headers for a single book
+HEAD http://127.0.0.1:3000/books/1
 
 ###
 
@@ -73,7 +93,7 @@ PATCH http://127.0.0.1:3000/books/1
 Content-Type: application/json
 
 {
-    "authorId": 1
+    "authors": [1, 2]
 }
 
 ###

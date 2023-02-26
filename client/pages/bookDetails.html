@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buchdetails</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="../styles/bookDetails.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo center pagetitle">Provisorisches Literaturverzeichnis</a>
+        </div>
+    </nav>
+    
+    <main>
+        <div class="containerBackground">
+            <div class="container">
+                <h2 class="bookTitle"></h2>
+                <div class="book-details">
+                    <p><strong>Titel:</strong> <span class="title"></span></p>
+                    <p><strong>ISBN:</strong> <span class="isbn"></span></p>
+                    <p><strong>Autoren:</strong> <span class="authors"></span></p>
+                    <p><strong>Veröffentlicht:</strong> <span class="releaseYear"></span></p>
+                    <p><strong>Kategorie:</strong> <span class="category"></span></p>
+                    <p><strong>Auflage:</strong> <span class="edition"></span></p>
+                </div>
+                <button id="back-button" class="back-button">Zurück zur Übersicht</button>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 footerText">
+                    <p>&copy; Made by Daniel Krasemann, Timo König und Yannic Lösche</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="../data/bookDetails.js"></script>
+</body>
+</html>

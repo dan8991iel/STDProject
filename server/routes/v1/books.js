@@ -2,7 +2,12 @@ const express = require ('express')
 const router = express.Router()
 const Book = require('../../models/book')
 
-//Getting all
+// Get list of all allowed methods (OPTIONS)
+router.options('/', async (req, res) => {
+    res.set('Allow', 'GET,HEAD,POST,PATCH,DELETE').status(200).json("GET,HEAD,POST,PATCH,DELETE")
+})
+
+// Retrieve all books (GET)
 router.get('/', async (req, res) =>{
     try{
         const books = await Book.find().populate('authors')
@@ -12,12 +17,12 @@ router.get('/', async (req, res) =>{
     }
 })
 
-//Getting one
+// Retrieve a specific book (GET)
 router.get('/:id', getBook, async (req, res) =>{
     res.json(res.book)
 })
 
-//Creating one
+// Create a new book (POST)
 router.post('/', async (req, res) =>{
     const book = new Book({
         _id: 999, // only temporary, is overwritten pre-save
@@ -38,7 +43,7 @@ router.post('/', async (req, res) =>{
     }
 })
 
-//Update one
+// Update certain details of a specific book (PATCH)
 router.patch('/:id', getBook, async (req, res) =>{
     if(req.body.isbn != null){
         res.book.isbn = req.body.isbn
@@ -71,7 +76,7 @@ router.patch('/:id', getBook, async (req, res) =>{
     }
 })
 
-//Delete one
+// Remove a specific book (DELETE)
 router.delete('/:id', getBook, async (req, res) =>{
     try{
         if(res.book == null){
@@ -86,13 +91,13 @@ router.delete('/:id', getBook, async (req, res) =>{
     }
 })
 
+// Reusable help method to retrieve a single book
 async function getBook (req, res, next){
-    let book
+    let books, book
     try{
         console.log(req.params.id);
-        book = await Book.find({"_id":req.params.id}).populate('authors')  
-        
-        console.log(book)
+        books = await Book.find({"_id":req.params.id}).populate('authors')  
+        book = books[0]
         
         if(book == null){
             return res.status(404).json({message: 'Cannot find book'})
@@ -100,7 +105,7 @@ async function getBook (req, res, next){
     }catch(error){
         return res.status(500).json({message: error.message})
     }
-    res.book = book[0]
+    res.book = book
     next()
 }
 

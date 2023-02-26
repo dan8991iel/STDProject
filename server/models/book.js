@@ -20,7 +20,9 @@ const bookSchema = new mongoose.Schema( {
         required: true
     },
     authors: [{
-        type: Number, ref: 'Author', required: false
+        type: Number,
+        ref: 'Author',
+        required: false
     }]
     ,
     edition: {

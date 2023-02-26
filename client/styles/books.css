@@ -13,10 +13,8 @@ main {
   flex-grow: 1;
 }
 
-
 nav{
   width: 100%;
-
 }
 
 .nav-wrapper {
@@ -27,7 +25,6 @@ nav{
 .pagetitle{
   width: 100%;
 }
-
 
 .tilegridBackground {
   min-height: 100%;

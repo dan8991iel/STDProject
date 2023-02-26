@@ -2,8 +2,14 @@ const express = require ('express')
 const router = express.Router()
 const Author = require ('../../models/author')
 
-//Getting all
+// Get list of all allowed methods (OPTIONS)
+router.options('/', async (req, res) => {
+    res.set('Allow', 'GET,HEAD').status(200).json("GET,HEAD")
+})
+
+// Retrieve all authors (GET)
 router.get('/', async (req, res) =>{
+    //res.set('Allow', 'GET, HEAD').status(405).json({message: 'Retrieving all authors is not allowed'})
     try{
         const author = await Author.find()
         res.status(200).json(author)
@@ -12,13 +18,14 @@ router.get('/', async (req, res) =>{
     }
 })
 
-//Getting one
+// Retrieve a specific author (GET)
 router.get('/:id', getAuthor, async (req, res) =>{
     res.json(res.author)
 })
 
-//Creating one
+// Create a new author (POST)
 router.post('/', async (req, res) =>{
+    //res.set('Allow', 'GET, HEAD').status(405).json({message: 'New authors cannot be created'})
     const author = new Author({
         _id: 999, // only temporary, is overwritten pre-save
         "name.firstName": req.body.name.firstName,
@@ -35,8 +42,9 @@ router.post('/', async (req, res) =>{
     }
 })
 
-//Update one
-router.patch('/:id', getAuthor, async (req, res) =>{
+// Update certain details of a specific author (PATCH)
+router.patch('/:id', /*getAuthor,*/ async (req, res) =>{
+    //res.set('Allow', 'GET, HEAD').status(405).json({message: 'Authors cannot be updated'})
     if(req.body.name != null){
         if(req.body.name.firstName != null){
             res.author.name.firstName = req.body.name.firstName
@@ -58,8 +66,9 @@ router.patch('/:id', getAuthor, async (req, res) =>{
     }
 })
 
-//Delete one
-router.delete('/:id', getAuthor, async (req, res) =>{
+// Remove a specific author (DELETE)
+router.delete('/:id', /*getAuthor,*/ async (req, res) =>{
+    //res.set('Allow', 'GET, HEAD').status(405).json({message: 'Authors cannot be deleted'})
     try{
         
         if(res.author == null){
@@ -74,17 +83,20 @@ router.delete('/:id', getAuthor, async (req, res) =>{
     }
 })
 
+// Reusable help method to retrieve a single author
 async function getAuthor (req, res, next){
-    let author
+    let authors, author
     try{
-        author = await Author.find({"_id":req.params.id})
+        authors = await Author.find({"_id":req.params.id})
+        author = authors[0]
+        
         if(author == null){
             return res.status(404).json({message: 'Cannot find author'})
         }
     }catch(error){
         return res.status(500).json({message: error.message})
     }
-    res.author = author[0]
+    res.author = author
     next()
 }
 
