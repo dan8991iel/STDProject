@@ -1,5 +1,5 @@
 # Get options for authors resource
-OPTIONS http://127.0.0.1:3000/authors
+OPTIONS http://127.0.0.1:3000/authors/1
 
 ###
 
@@ -24,8 +24,8 @@ Content-Type: application/json
 
 {
     "name": {
-        "firstName": "Thomas",
-        "surname": "Gottschalk"
+        "firstName": "Brian",
+        "surname": "Wortman"
     }
 }
 
@@ -42,7 +42,7 @@ OPTIONS http://127.0.0.1:3000/books
 ###
 
 # Get headers for a single book
-HEAD http://127.0.0.1:3000/books/1
+HEAD http://127.0.0.1:3000/books
 
 ###
 
@@ -52,7 +52,7 @@ GET http://127.0.0.1:3000/books
 ###
 
 # Get single book
-GET http://127.0.0.1:3000/books/1
+GET http://127.0.0.1:3000/books/2
 
 ###
 
@@ -61,12 +61,12 @@ POST http://127.0.0.1:3000/books
 Content-Type: application/json
 
 {
-    "isbn": "978-1-4842-3714-4",
-    "title": "REST API Development with Node.js",
-    "category": "Education",
-    "authors": [1],
+    "isbn": "978-1-4842-0110-7",
+    "title": "ASP.NET Web API 2: Building a REST Service from Start to Finish",
+    "category": "Web Development",
+    "authors": [18, 19],
     "edition": 1,
-    "releaseYear": 2018,
+    "releaseYear": 2014,
     "status": "0"
 }
 
@@ -93,7 +93,7 @@ PATCH http://127.0.0.1:3000/books/1
 Content-Type: application/json
 
 {
-    "authors": [1, 2]
+    "authors": [1]
 }
 
 ###
