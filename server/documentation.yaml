@@ -1,0 +1,261 @@
+openapi: 3.0.0
+info:
+  title: FHDW Bibliothek REST-API
+  description: REST-API für die Online-Bibliothek der FHDW
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Lokaler Testserver
+
+paths:
+  /books:
+    options:
+      summary: Alle erlaubten Methoden für die Ressource "books"
+      tags: [Bücher]
+      responses:
+        '200':
+          description: OK
+          headers:
+            Allow:
+              schema:
+                type: string
+              description: Die erlaubten Methoden für den /books Endpunkt
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: 'GET,HEAD,POST,PATCH,DELETE'
+    get:
+      summary: Alle Bücher auflisten
+      tags: [Bücher]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Neues Buch erstellen
+      tags: [Bücher]
+      requestBody:
+        description: Zu erstellendes Buch
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Fehlende Pflichtfelder"
+  /books/{id}:
+    get:
+      summary: Ein spezifisches Buch abrufen
+      tags: [Bücher]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID des Buches
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Buch existiert nicht"
+    patch:
+      summary: Informationen eines spezifischen Buches aktualisieren
+      tags: [Bücher]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID des Buches
+          schema:
+            type: integer
+            minimum: 1
+      requestBody:
+        description: Zu aktualisierende Informationen des Buches
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Fehlende Pflichtfelder"
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Buch existiert nicht"
+    delete:
+      summary: Ein spezifisches Buch löschen
+      tags: [Bücher]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID des Buches
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Buch gelöscht"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Fehler beim Datenbankzugriff"
+
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        _id:
+          type: integer
+          format: int64
+          example: 1
+        isbn:
+          type: string
+          example: '978-3-86490-120-1'
+        title:
+          type: string
+          example: 'REST und HTTP'
+        category:
+          type: string
+          example: 'Web Technologies and Applications'
+        authors:
+          type: array
+          items:
+            type: string
+            example: 'Stefan Tilkov'
+        edition:
+          type: integer
+          example: 3
+        releaseYear:
+          type: integer
+          example: 2015
+        status:
+          type: string
+          example: 'Verfügbar'
+      required:
+        - _id
+        - isbn
+        - title
+        - category
+        - authors
+        - edition
+        - releaseYear
+        - status
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Buch existiert nicht'
+    OptionsResponse:
+      type: string
+      example: 'GET,HEAD,POST,PATCH,DELETE'
+  parameters:
+    BookId:
+      name: id
+      in: path
+      required: true
+      description: ID des Buches
+      schema:
+        type: integer
+        format: int64
+        example: 1
+  responses:
+    BookResponse:
+      description: Buch-Objekt
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Book'
+    BookArrayResponse:
+      description: Array von Buch-Objekten
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Book'
+    ErrorResponse:
+      description: Fehler-Objekt
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    OptionsResponse:
+      description: Erlaubte HTTP-Methoden
+      content:
+        text/plain:
+          schema:
+            $ref: '#/components/schemas/OptionsResponse'
