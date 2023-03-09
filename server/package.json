@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/timok181/WTA-REST.git"
+    "url": "git+https://https://github.com/dan8991iel/STDProject.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/timok181/WTA-REST/issues"
+    "url": "https:/https://github.com/dan8991iel/STDProject/issues"
   },
-  "homepage": "https://github.com/timok181/WTA-REST#readme",
+  "homepage": "https://github.com/dan8991iel/STDProject#readme",
   "dependencies": {
     "express": "^4.18.2",
     "express-handlebars": "^6.0.7",
