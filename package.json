@@ -1,0 +1,21 @@
+{
+  "name": "stdproject",
+  "version": "1.0.0",
+  "description": "FHDW | WTA | BFWS420A | Library REST API",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dan8991iel/STDProject.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dan8991iel/STDProject/issues"
+  },
+  "homepage": "https://github.com/dan8991iel/STDProject#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.31.2"
+  }
+}
