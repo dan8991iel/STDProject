@@ -31,5 +31,5 @@ fetch(`http://127.0.0.1:3000/books/${bookId}`, {method: "GET"})
   });
 
   backButton.addEventListener("click", () => {
-    window.location.href = "http://127.0.0.1:5500/client/pages/books.html";
+    window.location.href = "http://127.0.0.1:5500/client/src/pages/books.html";
   });
