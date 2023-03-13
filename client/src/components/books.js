@@ -33,7 +33,7 @@ fetch('http://127.0.0.1:3000/books',{method:"GET"})
       tile.appendChild(releaseYear);
 
       tile.addEventListener('click', () => {
-        window.location.href = window.location.protocol + "//" + window.location.hostname + ":5500"+`/client/pages/bookDetails.html?id=${book._id}`
+        window.location.href = window.location.protocol + "//" + window.location.hostname + ":5500"+`/client/src/pages/bookDetails.html?id=${book._id}`
       });
 
       tilegrid.appendChild(tile);
