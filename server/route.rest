@@ -78,7 +78,7 @@ Content-Type: application/json
 
 {
     "isbn": "978-1-4842-2665-0",
-    "title": "Pro RESTful APIs",
+    "title": "Testbuch",
     "category": "Education",
     //"authors": [1, 2]//,
     "edition": 1,
