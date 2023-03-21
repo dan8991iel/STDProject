@@ -50,7 +50,9 @@ nav{
 .bookTitle {
     display: block;
     padding: 2%;
+    width: 100%;
     margin-left: auto;
+    text-align: center;
     margin-right: auto;
     color: rgb(43, 43, 43);
     font-family: Arial, Helvetica, sans-serif;
@@ -58,7 +60,10 @@ nav{
 }
 
 .book-details {
-    max-width: 800px;
+    min-width: 600px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 1em;
     border-radius: 3px;
@@ -100,15 +105,15 @@ nav{
     cursor: pointer;
     border-radius: 4px;
     text-decoration: none;
-    display: inline-block;
+    display: inline;
     transition: background-color 0.3s;
-    width: 60%;
-    margin-left: auto;
+    width: 10pc;
     margin-right: auto;
   }
   
   .back-button:hover {
-    background-color: #ddd;
+    color: #f2f2f2;
+    background-color: #ee6e73;
   }  
 
 .page-footer {
@@ -128,4 +133,76 @@ nav{
 
 .footerText{
     font-size: 1.2rem;
+}
+
+
+.citation-button {
+    background-color: #f2f2f2;
+    border: none;
+    color: #333;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    display: inline-block;
+    transition: background-color 0.3s;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.citation-button:hover {
+    color: #f2f2f2;
+    background-color: #ee6e73;
+}
+
+.citation-modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.citation-modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    width: 60%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.citation-text {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    resize: none;
+}
+
+.close-modal {
+    background-color: #f2f2
+    2f2;
+    border: none;
+    color: #333;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.close-modal:hover {
+background-color: #ddd;
 }

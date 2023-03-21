@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="../styles/bookDetails.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
     <nav>
@@ -28,6 +29,19 @@
                     <p><strong>Auflage:</strong> <span class="edition"></span></p>
                 </div>
                 <button id="back-button" class="back-button">Zurück zur Übersicht</button>
+                <button id="citation-button" class="citation-button">Generate Citation</button>
+                <div id="citation-modal" class="citation-modal">
+                    <div class="citation-modal-content">
+                        <label for="citation-style">Citation Style:</label>
+                        <select id="citation-style" class="citation-style">
+                            <option value="apa">APA</option>
+                            <option value="mla">MLA</option>
+                            <option value="chicago">Chicago</option>
+                        </select>
+                        <textarea id="citation-text" class="citation-text" readonly></textarea>
+                        <button id="close-modal" class="close-modal">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -42,6 +56,6 @@
         </div>
     </footer>
     
-    <script src="../components/bookDetails.js"></script>
+    <script type="module" src="../components/bookDetails.js"></script>
 </body>
 </html>
