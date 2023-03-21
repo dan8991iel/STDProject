@@ -1,4 +1,4 @@
-import { generateCitation } from '../modules/citation.js';
+import { generateCitation } from '../../../src//modules/citation.js';
 
 
 const exampleBook = {
@@ -11,57 +11,88 @@ const exampleBook = {
     edition: '1st',
   };
 
-  const exampleBookMissingYear = {
-    title: 'Example Book',
-    subtitle: 'A Great Subtitle',
-    authors: ['John Doe', 'Jane Smith'],
-    category: 'Fiction',
-    publisher: 'Example Publisher',
-    edition: '1st',
-  };
-  
-  const exampleBookMissingAuthors = {
-    title: 'Example Book',
-    subtitle: 'A Great Subtitle',
-    releaseYear: '2022',
-    category: 'Fiction',
-    publisher: 'Example Publisher',
-    edition: '1st',
-  };
-
 
   test('APA citation style', () => {
-    expect(generateCitation('apa', exampleBook)).toBe('Doe, John, Smith, Jane. (2022). Example Book. 1st ed., Example Publisher.');
+    const citation = generateCitation('apa', exampleBook);
+    expect(citation).toBe('Doe, John, Smith, Jane. (2022). Example Book. 1st ed., Example Publisher.');
   });
   
   test('MLA citation style', () => {
-    expect(generateCitation('mla', exampleBook)).toBe('Doe, John, Smith, Jane. Example Book: A Great Subtitle. 1st ed., Example Publisher, 2022.');
+    const citation = generateCitation('mla', exampleBook);
+    expect(citation).toBe('Doe, John, Smith, Jane. Example Book: A Great Subtitle. 1st ed., Example Publisher, 2022.');
   });
   
   test('Chicago citation style', () => {
-    expect(generateCitation('chicago', exampleBook)).toBe('Doe, John, Smith, Jane. Example Book: A Great Subtitle. 1st ed., Example Publisher, 2022.');
+    const citation = generateCitation('chicago', exampleBook);
+    expect(citation).toBe('Doe, John, Smith, Jane. Example Book: A Great Subtitle. 1st ed., Example Publisher, 2022.');
   });
 
   test('APA citation style - missing year', () => {
-    expect(generateCitation('apa', exampleBookMissingYear)).toBe('Doe, John, Smith, Jane. (o. J.). Example Book. 1st ed., Example Publisher.');
+    const {releaseYear, ...exampleBookMissingYear} = exampleBook;
+    const citation = generateCitation('apa', exampleBookMissingYear);
+    expect(citation).toBe('Doe, John, Smith, Jane. (o. J.). Example Book. 1st ed., Example Publisher.');
   });
   
   test('MLA citation style - missing year', () => {
-    expect(generateCitation('mla', exampleBookMissingYear)).toBe('Doe, John, Smith, Jane. Example Book: A Great Subtitle. 1st ed., Example Publisher, o. J..');
+    const {releaseYear, ...exampleBookMissingYear} = exampleBook;
+    const citation = generateCitation('mla', exampleBookMissingYear);
+    expect(citation).toBe('Doe, John, Smith, Jane. Example Book: A Great Subtitle. 1st ed., Example Publisher, o. J..');
   });
   
   test('Chicago citation style - missing year', () => {
-    expect(generateCitation('chicago', exampleBookMissingYear)).toBe('Doe, John, Smith, Jane. Example Book: A Great Subtitle. 1st ed., Example Publisher, o. J..');
+    const {releaseYear, ...exampleBookMissingYear} = exampleBook;
+    const citation = generateCitation('chicago', exampleBookMissingYear);
+    expect(citation).toBe('Doe, John, Smith, Jane. Example Book: A Great Subtitle. 1st ed., Example Publisher, o. J..');
   });
   
   test('APA citation style - missing authors', () => {
-    expect(generateCitation('apa', exampleBookMissingAuthors)).toBe('. (2022). Example Book. 1st ed., Example Publisher.');
+    const {authors, ...exampleBookMissingAuthors} = exampleBook;
+    const citation = generateCitation('apa', exampleBookMissingAuthors);
+    expect(citation).toBe('. (2022). Example Book. 1st ed., Example Publisher.');
   });
   
   test('MLA citation style - missing authors', () => {
-    expect(generateCitation('mla', exampleBookMissingAuthors)).toBe('. Example Book: A Great Subtitle. 1st ed., Example Publisher, 2022.');
+    const {authors, ...exampleBookMissingAuthors} = exampleBook;
+    const citation = generateCitation('mla', exampleBookMissingAuthors);
+    expect(citation).toBe('. Example Book: A Great Subtitle. 1st ed., Example Publisher, 2022.');
   });
   
   test('Chicago citation style - missing authors', () => {
-    expect(generateCitation('chicago', exampleBookMissingAuthors)).toBe('. Example Book: A Great Subtitle. 1st ed., Example Publisher, 2022.');
+    const {authors, ...exampleBookMissingAuthors} = exampleBook;
+    const citation = generateCitation('chicago', exampleBookMissingAuthors);
+    expect(citation).toBe('. Example Book: A Great Subtitle. 1st ed., Example Publisher, 2022.');
+  });
+
+  test('APA citation style - missing edition', () => {
+    const {edition, ...exampleBookMissingEdition} = exampleBook;
+    const citation = generateCitation('apa', exampleBookMissingEdition);
+    expect(citation).toBe('Doe, John, Smith, Jane. (2022). Example Book. Example Publisher.');
+  });
+  
+  test('MLA citation style - missing edition', () => {
+    const {edition, ...exampleBookMissingEdition} = exampleBook;
+    const citation = generateCitation('mla', exampleBookMissingEdition);
+    expect(citation).toBe('Doe, John, Smith, Jane. Example Book: A Great Subtitle. Example Publisher, 2022.');
+  });
+  
+  test('Chicago citation style - missing edition', () => {
+    const {edition, ...exampleBookMissingEdition} = exampleBook;
+    const citation = generateCitation('chicago', exampleBookMissingEdition);
+    expect(citation).toBe('Doe, John, Smith, Jane. Example Book: A Great Subtitle. Example Publisher, 2022.');
+  });
+
+  test('MLA citation style - missing subtitle', () => {
+    const {subtitle, ...exampleBookMissingSubtitle} = exampleBook;
+    const citation = generateCitation('mla', exampleBookMissingSubtitle);
+    expect(citation).toBe('Doe, John, Smith, Jane. Example Book. 1st ed., Example Publisher, 2022.');
+  });
+  
+  test('Chicago citation style - missing subtitle', () => {
+    const {subtitle, ...exampleBookMissingSubtitle} = exampleBook;
+    const citation = generateCitation('chicago', exampleBookMissingSubtitle);
+    expect(citation).toBe('Doe, John, Smith, Jane. Example Book. 1st ed., Example Publisher, 2022.');
+  });
+
+  test('Unsupported citation style', () => {
+    expect(generateCitation('unsupportedStyle', exampleBook)).toBe('');
   });
