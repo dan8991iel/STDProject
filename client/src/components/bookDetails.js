@@ -1,4 +1,4 @@
-import { generateCitation } from '../modules/citation.js';
+import { generateCitation } from '../modules/bookCitationGen.js';
 
 const queryParams = new URLSearchParams(window.location.search);
 const bookId = queryParams.get('id');
