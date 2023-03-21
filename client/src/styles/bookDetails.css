@@ -95,65 +95,42 @@ nav{
     margin-right: 0.5em;
 }
 
-.back-button {
-    background-color: #f2f2f2;
-    border: none;
-    color: #333;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
-    text-decoration: none;
-    display: inline;
-    transition: background-color 0.3s;
-    width: 10pc;
-    margin-right: auto;
-  }
-  
-  .back-button:hover {
-    color: #f2f2f2;
-    background-color: #ee6e73;
-  }  
-
-.page-footer {
-    position: relative;
-    bottom: 0;
+.button-row{
     width: 100%;
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-}
-
-.page-footer p {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
-
-.footerText{
-    font-size: 1.2rem;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    gap: 10px;
 }
 
 
-.citation-button {
+
+.button {
+    -webkit-box-flex: 1 1 auto;
+    -moz-box-flex:  1 1 auto;
+    -webkit-flex:  1 1 auto;
+    -ms-flex:  1 1 auto;
+    flex:  1 1 auto;
+    
     background-color: #f2f2f2;
     border: none;
     color: #333;
-    padding: 10px 20px;
+    padding: 15px 30px;
+    
     font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
     border-radius: 4px;
     display: inline-block;
-    transition: background-color 0.3s;
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
+    transition: background-color 0.3s; 
 }
 
-.citation-button:hover {
+.button:hover {
     color: #f2f2f2;
     background-color: #ee6e73;
 }
@@ -206,3 +183,26 @@ nav{
 .close-modal:hover {
 background-color: #ddd;
 }
+
+.page-footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.page-footer p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.footerText{
+    font-size: 1.2rem;
+}
+
+
+
+

@@ -1,3 +1,4 @@
+import { generateCitation } from '../modules/citation.js';
 
 
 const exampleBook = {
