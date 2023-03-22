@@ -15,7 +15,6 @@ main {
 
 nav{
   width: 100%;
-  line-height: 0px;
 }
 
 .nav-wrapper {
@@ -98,21 +97,21 @@ nav{
 
 .contribute-button {
   display: inline-block;
-  padding: 20px 20px;
-  background-color: #4b9c9c;
+  background-color: #e3585d;
   color: #FFFFFF;
-  text-decoration: none;
+  width: 10%;
+  text-align: center;
+  height: 100%;
   font-weight: bold;
-  border-radius: 4px;
   transition: background-color 0.3s;
   z-index: 1000;
   margin-left: auto;
-  margin-right: 40px;
+  margin-right: 0px;
   
 }
 
 .contribute-button:hover {
-  background-color: #118888;
+  background-color: #eb9c9f;
 }
 
 

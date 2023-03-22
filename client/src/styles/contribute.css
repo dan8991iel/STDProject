@@ -14,12 +14,24 @@ body {
     background-size: cover;
   }
 
+  nav{
+    width: 100%;
+  }
+  
+  .nav-wrapper {
+    min-height: 64px; /* add this line */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
 .pagetitle {
     width: 100%;
   }
 
 .collection-item {
-    font-weight: 800;
+    font-weight: 600;
 }
   
 .collection-item.active {
@@ -58,3 +70,23 @@ body {
   .footerText{
     font-size: 1.2rem;
   }
+
+  .back-button {
+    display: inline-block;
+    background-color: #e3585d;
+    color: #FFFFFF;
+    width: 10%;
+    text-align: center;
+    height: 100%;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    z-index: 1000;
+    margin-left: 0px;
+    margin-right: auto;
+    
+  }
+  
+  .back-button:hover {
+    background-color: #eb9c9f;
+  }
+  
