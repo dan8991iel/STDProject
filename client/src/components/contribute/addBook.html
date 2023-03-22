@@ -1,41 +1,45 @@
 <h3>Add a New Book</h3>
+<div id="status-message" style="display: none;"></div>
 <form id="addBookForm">
     <div class="input-field">
-        <label for="title" class="active">Title</label>
+        <label for="title" class="active">Titel</label>
         <input id="title" type="text" required placeholder="Example: The Catcher in the Rye">
     </div>
     <div class="input-field">
-        <label for="subtitle" class="active">Subtitle</label>
-        <input id="subtitle" type="text" placeholder="Example: A Novel">
+        <label for="subheading" class="active">Untertitel</label>
+        <input id="subheading" type="text" placeholder="Example: A Novel">
     </div>
     <div class="input-field">
         <label for="isbn" class="active">ISBN</label>
-        <input id="isbn" type="text" required placeholder="Example: 978-0316769488">
+        <input id="isbn" type="text" pattern="\d*" required placeholder="Example: 9780316769488">
     </div>
+    <label class="author-label">Authoren</label>
     <div id="author-container">
         <div class="author-input-set">
             <div class="input-field inline">
-                <label for="authorFirstName-1" class="active">Author First Name</label>
+                <label for="authorFirstName-1" class="active">Vorname</label>
                 <input id="authorFirstName-1" type="text" required placeholder="Example: John">
             </div>
             <div class="input-field inline">
-                <label for="authorLastName-1" class="active">Author Last Name</label>
+                <label for="authorLastName-1" class="active">Nachname</label>
                 <input id="authorLastName-1" type="text" required placeholder="Example: Doe">
             </div>
+           
         </div>
     </div>
-    <button id="add-author" type="button" class="btn waves-effect waves-light">Add Author</button>
+    <button id="add-author" type="button" class="btn waves-effect waves-light">Author hinzufügen</button>
     <div class="input-field">
-        <label for="releaseYear" class="active">Release Year</label>
-        <input id="releaseYear" type="number" required placeholder="Example: 1951">
+        <label for="releaseYear"  class="active">Veröffentlichungsjahr</label>
+        <input id="releaseYear" max="2023" type="number" required placeholder="Example: 1951">
     </div>
     <div class="input-field">
-        <label for="edition" class="active">Edition</label>
-        <input id="edition" type="text" placeholder="Example: 1st Edition">
+        <label for="edition"  class="active">Auflage</label>
+        <input id="edition" max="100" pattern="\d*" type="number" placeholder="Example: 1, 2, 3, 4, ...">
     </div>
     <div class="input-field">
-        <label for="publisher" class="active">Publisher</label>
+        <label for="publisher" class="active">Veröffentlicher</label>
         <input id="publisher" type="text" required placeholder="Example: Little, Brown and Company">
     </div>
     <button class="btn waves-effect waves-light" type="submit">Submit</button>
+    <button class="btn waves-effect waves-light" type="reset">Clear</button>
 </form>

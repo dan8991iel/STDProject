@@ -32,7 +32,7 @@ export function generateCitation(style, book) {
       }
 
       apaCitation += `(${book.releaseYear ? book.releaseYear : 'o. J.'}). `;
-      apaCitation += `${book.title}${book.subtitle ? ': ' + book.subtitle : ''}`;
+      apaCitation += `${book.title}${book.subheading ? ': ' + book.subheading : ''}`;
       apaCitation += `${book.edition? ' ('+book.edition+' ed.). ':'. '}`;
       apaCitation += `${book.publisher}.`;
       //apaCitation += `${book.url ? ' '+ book.url + '.': ''}`;
@@ -47,21 +47,21 @@ export function generateCitation(style, book) {
     if(book.authors){
         switch (book.authors.length){
           case 1: 
-            if(!book.authors[0].name){break;}
+            if(!book.authors[0] || !book.authors[0].name){break;}
             mlaCitation += `${book.authors[0].name.surname}, ${book.authors[0].name.firstName}. `;
             break;
           case 2:
-            if(!book.authors[0].name || !book.authors[1].name){break;}
+            if(!book.authors[0] || !book.authors[0].name || !book.authors[1].name){break;}
             mlaCitation += `${book.authors[0].name.surname}, ${book.authors[0].name.firstName}, and ${book.authors[1].name.firstName} ${book.authors[1].name.surname}. `;
             break;
           default: 
-            if(!book.authors[0].name){break;}
+            if(!book.authors[0] || !book.authors[0].name){break;}
             mlaCitation += `${book.authors[0].name.surname}, ${book.authors[0].name.firstName}, et al. `;
             break;
         }
       }
 
-      mlaCitation += `${book.title}${book.subtitle ? ': ' + book.subtitle : ''}. `;
+      mlaCitation += `${book.title}${book.subheading ? ': ' + book.subheading : ''}. `;
       mlaCitation += `${book.edition? book.edition+' ed., ':''}`;
       mlaCitation += `${book.publisher}, `;
       mlaCitation += `${book.releaseYear ? book.releaseYear : 'o. J.'}.`;
@@ -102,11 +102,11 @@ export function generateCitation(style, book) {
         }
       })
     }
-
-    chicagoCitation += `${book.title}${book.subtitle ? ': ' + book.subtitle+'. ' : '. '}`;
+    chicagoCitation += `${book.releaseYear ? book.releaseYear : 'o. J.'}. `;
+    chicagoCitation += `${book.title}${book.subheading ? ': ' + book.subheading+'. ' : '. '}`;
     chicagoCitation += `${book.edition? book.edition+' ed. ':''}`;
-    chicagoCitation += `${book.publisher}, `;
-    chicagoCitation += `${book.releaseYear ? book.releaseYear : 'o. J.'}.`;
+    chicagoCitation += `${book.publisher}.`;
+    
 
     return chicagoCitation;
   }

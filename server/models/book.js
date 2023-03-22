@@ -2,43 +2,44 @@ const mongoose = require('mongoose')
 const Author = require('./author')
 const autoIncrementModelID = require('./counter')
 
+const authorNameSchema = new mongoose.Schema({
+    firstName: String,
+    surname: String
+})
+
 const bookSchema = new mongoose.Schema( {
     _id: {
         type: Number,
         required: true,
     },
-    isbn: {
-        type: String,
-        required: true
-    },
     title: {
         type: String,
         required: true
     },
-    category: {
+    subheading: {
+        type: String,
+        required: false
+    },
+    isbn: {
         type: String,
         required: true
     },
     authors: [{
-        type: Number,
-        ref: 'Author',
+        name: authorNameSchema,
         required: false
-    }]
-    ,
-    edition: {
-        type: Number,
-        required: false
-    },
+    }],
     releaseYear: {
         type: Number,
         max: new Date().getFullYear() + 1,
         required: false
     },
-    status: {
-        type: Number,
-        min: 0,
-        max: 2,
+    edition: {
+        type: String,
         required: false
+    },
+    publisher: {
+        type: String,
+        required: true
     }
 })
 

@@ -5,10 +5,11 @@ const bookId = queryParams.get('id');
 
 const bookTitle = document.querySelector('.bookTitle');
 const title = document.querySelector('.title');
+const subheading = document.querySelector('.subheading');
 const isbn = document.querySelector('.isbn');
 const authors = document.querySelector('.authors');
 const releaseYear = document.querySelector('.releaseYear');
-const category = document.querySelector('.category');
+const publisher = document.querySelector('.publisher');
 const edition = document.querySelector('.edition');
 const backButton = document.getElementById("back-button");
 const citationButton = document.getElementById("citation-button");
@@ -21,18 +22,6 @@ const closeModal = document.getElementById("close-modal");
 
 var book;
 
-/*function generateCitation(style, book) {
-  switch (style) {
-    case "apa":
-      return `${book.authors.join(', ')}. (${book.releaseYear}). ${book.title}. ${book.category}.`;
-    case "mla":
-      return `${book.authors.join(', ')}. ${book.title}. ${book.category}, ${book.releaseYear}.`;
-    case "chicago":
-      return `${book.authors.join(', ')}. ${book.title}. ${book.category}, ${book.releaseYear}.`;
-    default:
-      return "";
-  }
-}*/
 
 fetch(`http://127.0.0.1:3000/books/${bookId}`, {method: "GET"})
   .then(response => response.json())
@@ -40,6 +29,7 @@ fetch(`http://127.0.0.1:3000/books/${bookId}`, {method: "GET"})
     book = responseBook ;
     bookTitle.textContent = book .title;
     title.textContent = book.title;
+    subheading.textContent = book.subheading;
     isbn.textContent = book.isbn;
     let authorNames = '';
     for(let i = 0; i < book.authors.length; i++) {
@@ -51,8 +41,8 @@ fetch(`http://127.0.0.1:3000/books/${bookId}`, {method: "GET"})
     }
     authors.textContent = authorNames;
     releaseYear.textContent = book.releaseYear;
-    category.textContent = book.category;
     edition.textContent = book.edition;
+    publisher.textContent = book.publisher;
   });
 
   backButton.addEventListener("click", () => {

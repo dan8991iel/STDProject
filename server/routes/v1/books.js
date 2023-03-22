@@ -29,13 +29,13 @@ router.get('/:id', getBook, async (request, response) =>{
 router.post('/', async (request, response) =>{
     const book = new Book({
         _id: 999, // only temporary, is overwritten pre-save
-        isbn: request.body.isbn,
         title: request.body.title,
-        category: request.body.category,
+        subheading: request.body.subheading,
+        isbn: request.body.isbn,
         authors: request.body.authors,
-        edition: request.body.edition,
         releaseYear: request.body.releaseYear,
-        status: request.body.status
+        edition: request.body.edition,
+        publisher: request.body.publisher
     })
 
     try{

@@ -1,92 +1,82 @@
-html, body {
-    height: 100%;
-  }
+h3{
+  margin:0px;
+  padding: 0px;
+}
 
-main {
-    flex-grow: 1;
-  }
-  
+.row{
+  margin-bottom: 0px;
+}
 
-body {
-    display: flex;
-    flex-direction: column;
-    background: url('https://source.unsplash.com/featured/?library') no-repeat center center fixed;
-    background-size: cover;
-  }
-
-  nav{
-    width: 100%;
-  }
-  
-  .nav-wrapper {
-    min-height: 64px; /* add this line */
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-.pagetitle {
-    width: 100%;
-  }
+.row .col.s9{
+  padding-right: 0px;
+}
 
 .collection-item {
-    font-weight: 600;
+  font-weight: 600;
 }
-  
+
 .collection-item.active {
-    background-color: #26a69a;
+  background-color: #26a69a;
 }
 
-.contribute-area{
-    min-height: 100%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    background-color: rgba(255, 255, 255, 1);
-    min-height: 100%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.contribute-area {
+  min-height: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.8);
+  min-height: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+.author-input-set {
+  display: flex;
+}
 
-.page-footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0;
-  }
-  
-  .page-footer p {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-  
-  .footerText{
-    font-size: 1.2rem;
-  }
+.author-input-set .input-field {
+  flex-grow: 1;
+  margin-right: 5px;
+}
 
-  .back-button {
-    display: inline-block;
-    background-color: #e3585d;
-    color: #FFFFFF;
-    width: 10%;
-    text-align: center;
-    height: 100%;
-    font-weight: bold;
-    transition: background-color 0.3s;
-    z-index: 1000;
-    margin-left: 0px;
-    margin-right: auto;
+.remove-author {
+  margin-top: 22px;
+}
+
+#add-author {
+  margin-bottom: 15px;
+}
+
+label:not(.active) {
+  font-size: 1.4rem;
+  color: #1f1f1f;
+  margin-bottom: 5px;
+  position: relative;
+}
+
+label.active {
+  font-size: 1.2rem;
+  color: #1f1f1f;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+input::placeholder {
+  color: #7e7e7e;
+}
+
+.input-field{
+  background-color:white;
+  padding:10px;
+  border-radius:4px;
+}
+
+#content{
+    background-color:#26a69927;
+    padding:20px;
+    border-radius:4px;
     
-  }
-  
-  .back-button:hover {
-    background-color: #eb9c9f;
-  }
-  
+}
+
