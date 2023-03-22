@@ -122,4 +122,4 @@ function addOrdinalSuffix(number){
     return number + "th";
 }
 
-export { displayAddBookForm };
+export { displayAddBookForm, submitAddBookForm };

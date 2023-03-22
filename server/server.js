@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const http = require('http');
 
 mongoose.set('strictQuery', true);
 mongoose.connect(process.env.DATABASE_URL);
@@ -16,11 +17,6 @@ app.use(cors());
 
 app.use(express.json());
 
-/*app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    next();
-});*/
-
 const booksRouter = require('./routes/v1/books')
 app.use('/v1/books', booksRouter)
 app.use('/books', booksRouter)
@@ -29,6 +25,14 @@ app.use('/books', booksRouter)
 app.use('/v1/authors', authorsRouter)
 app.use('/authors', authorsRouter)*/
 
-app.listen(3000, () => console.log('Server started'))
+const server = http.createServer(app);
+server.listen(3000, () => console.log('Server started'))
 
-//Hallo Welt
+module.exports = {
+    start: async () => {
+      await server.listen(3000);
+    },
+    close: async () => {
+      await server.close();
+    },
+  };
