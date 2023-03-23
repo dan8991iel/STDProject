@@ -32,6 +32,8 @@ h3{
 
 .author-input-set {
   display: flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .author-input-set .input-field {
@@ -40,7 +42,9 @@ h3{
 }
 
 .remove-author {
-  margin-top: 22px;
+  justify-content: center;
+  display: flex;
+  align-items:center;
 }
 
 #add-author {

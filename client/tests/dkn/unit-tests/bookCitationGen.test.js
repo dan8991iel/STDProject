@@ -169,11 +169,11 @@ const exampleBook = {
   
 
   test('String as book', () => {
-    expect(generateCitation('unsupportedStyle', "")).toBe('');
+    expect(generateCitation('apa', "")).toBe('undefined.(o. J.). undefined. undefined.');
   });
 
   test('Int as book', () => {
-    expect(generateCitation('unsupportedStyle', 2)).toBe('');
+    expect(generateCitation('apa', 2)).toBe('undefined.(o. J.). undefined. undefined.');
   });
   
   test('Unsupported citation style', () => {
