@@ -30,7 +30,7 @@ router.post('/', async (request, response) =>{
     const book = new Book({
         _id: 999, // only temporary, is overwritten pre-save
         title: request.body.title,
-        subheading: request.body.subheading,
+        subtitle: request.body.subtitle,
         isbn: request.body.isbn,
         authors: request.body.authors,
         releaseYear: request.body.releaseYear,

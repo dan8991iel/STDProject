@@ -32,7 +32,7 @@ export function generateCitation(style, book) {
       }
 
       apaCitation += `(${book.releaseYear ? book.releaseYear : 'o. J.'}). `;
-      apaCitation += `${book.title}${book.subheading ? ': ' + book.subheading : ''}`;
+      apaCitation += `${book.title}${book.subtitle ? ': ' + book.subtitle : ''}`;
       apaCitation += `${book.edition? ' ('+book.edition+' ed.). ':'. '}`;
       apaCitation += `${book.publisher}.`;
       //apaCitation += `${book.url ? ' '+ book.url + '.': ''}`;
@@ -61,7 +61,7 @@ export function generateCitation(style, book) {
         }
       }
 
-      mlaCitation += `${book.title}${book.subheading ? ': ' + book.subheading : ''}. `;
+      mlaCitation += `${book.title}${book.subtitle ? ': ' + book.subtitle : ''}. `;
       mlaCitation += `${book.edition? book.edition+' ed., ':''}`;
       mlaCitation += `${book.publisher}, `;
       mlaCitation += `${book.releaseYear ? book.releaseYear : 'o. J.'}.`;
@@ -103,7 +103,7 @@ export function generateCitation(style, book) {
       })
     }
     chicagoCitation += `${book.releaseYear ? book.releaseYear : 'o. J.'}. `;
-    chicagoCitation += `${book.title}${book.subheading ? ': ' + book.subheading+'. ' : '. '}`;
+    chicagoCitation += `${book.title}${book.subtitle ? ': ' + book.subtitle+'. ' : '. '}`;
     chicagoCitation += `${book.edition? book.edition+' ed. ':''}`;
     chicagoCitation += `${book.publisher}.`;
     

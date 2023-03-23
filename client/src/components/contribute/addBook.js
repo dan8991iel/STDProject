@@ -8,7 +8,7 @@ async function submitAddBookForm(event) {
     event.preventDefault();
 
     const title = document.getElementById('title').value;
-    const subheading = document.getElementById('subheading').value;
+    const subtitle = document.getElementById('subtitle').value;
     const isbn = document.getElementById('isbn').value;
     const releaseYear = document.getElementById('releaseYear').value;
     const edition = addOrdinalSuffix(document.getElementById('edition').value);
@@ -24,7 +24,7 @@ async function submitAddBookForm(event) {
 
     const bookData = {
         title,
-        subheading,
+        subtitle,
         isbn,
         authors,
         releaseYear: parseInt(releaseYear, 10),

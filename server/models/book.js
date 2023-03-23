@@ -16,7 +16,7 @@ const bookSchema = new mongoose.Schema( {
         type: String,
         required: true
     },
-    subheading: {
+    subtitle: {
         type: String,
         required: false
     },

@@ -22,7 +22,7 @@ describe('Add Book Integration Test', () => {
   test('submits a new book and receives a success response', async () => {
     const bookData = {
       title: 'Sample Title',
-      subheading: 'Sample Subheading',
+      subtitle: 'Sample subtitle',
       isbn: '1234567890',
       authors: [{ name: { firstName: 'John', surname: 'Doe' } }],
       releaseYear: 2022,
@@ -41,7 +41,7 @@ describe('Add Book Integration Test', () => {
     expect(response.status).toBe(201);
     const savedBook = await response.json();
     expect(savedBook.title).toBe(bookData.title);
-    expect(savedBook.subheading).toBe(bookData.subheading);
+    expect(savedBook.subtitle).toBe(bookData.subtitle);
     expect(savedBook.isbn).toBe(bookData.isbn);
     expect(savedBook.authors).toEqual(
         expect.arrayContaining(
