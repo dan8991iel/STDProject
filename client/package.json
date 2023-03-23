@@ -22,7 +22,7 @@
     "playwright": "^1.31.2"
   },
   "scripts": {
-    "test:unit": "jest --config jest.config.unit.js",
-    "test:integration": "jest --config jest.config.integration.js --detectOpenHandles --forceExit"
+    "test:dkn:unit": "jest --config jest.config.unit.js",
+    "test:dkn:integration": "jest --config jest.config.integration.js --detectOpenHandles --forceExit"
   }
 }

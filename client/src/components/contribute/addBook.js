@@ -75,14 +75,14 @@ function setupEventListeners() {
         const firstNameInput = document.createElement('div');
         firstNameInput.classList.add('input-field', 'inline');
         firstNameInput.innerHTML = `
-            <label for="authorFirstName-${authorCount}" class="active">Author First Name</label>
+            <label for="authorFirstName-${authorCount}" class="active">Vorname</label>
             <input id="authorFirstName-${authorCount}" type="text" required placeholder="Example: John">
         `;
 
         const lastNameInput = document.createElement('div');
         lastNameInput.classList.add('input-field', 'inline');
         lastNameInput.innerHTML = `
-            <label for="authorLastName-${authorCount}" class="active">Author Last Name</label>
+            <label for="authorLastName-${authorCount}" class="active">Nachnahme</label>
             <input id="authorLastName-${authorCount}" type="text" required placeholder="Example: Doe">
         `;
 
