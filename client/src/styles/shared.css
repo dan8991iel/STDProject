@@ -40,7 +40,8 @@ html, body {
   
   .page-footer p {
     margin: 0;
-    padding: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
     text-align: center;
   }
   
@@ -65,3 +66,8 @@ html, body {
   .back-button:hover {
     background-color: #eb9c9f;
 }
+
+.row{
+  margin-bottom: 0px;
+}
+

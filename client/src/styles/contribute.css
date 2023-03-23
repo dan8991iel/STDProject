@@ -3,9 +3,7 @@ h3{
   padding: 0px;
 }
 
-.row{
-  margin-bottom: 0px;
-}
+
 
 .row .col.s9{
   padding-right: 0px;
@@ -76,7 +74,6 @@ input::placeholder {
 #content{
     background-color:#26a69927;
     padding:20px;
-    border-radius:4px;
-    
+    border-radius:4px;  
 }
 
