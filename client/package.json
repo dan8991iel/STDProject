@@ -15,14 +15,16 @@
     "@playwright/test": "^1.31.2",
     "babel-jest": "^29.5.0",
     "init": "^0.1.2",
+    "istanbul": "^0.4.5",
     "jest": "^29.5.0",
     "jest-fetch-mock": "^3.0.3",
     "mongodb-memory-server": "^8.12.1",
     "npm": "^9.6.1",
+    "nyc": "^15.1.0",
     "playwright": "^1.31.2"
   },
   "scripts": {
-    "test:dkn:unit": "jest --config jest.config.unit.js",
+    "test:dkn:unit": "jest --config jest.config.unit.js --coverage",
     "test:dkn:integration": "jest --config jest.config.integration.js --detectOpenHandles --forceExit"
   }
 }
