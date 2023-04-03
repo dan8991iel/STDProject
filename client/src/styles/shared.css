@@ -9,9 +9,7 @@ html, body {
     background-size: cover;
   }
   
-  main {
-    flex-grow: 1;
-  }
+  
   
   nav {
     width: 100%;

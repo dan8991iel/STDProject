@@ -1,3 +1,7 @@
+main {
+    flex-grow: 1;
+  }
+
 .containerBackground {
     min-height: 100%;
     display: block;
@@ -157,5 +161,3 @@
 .close-modal:hover {
     background-color: #ddd;
 }
-
-

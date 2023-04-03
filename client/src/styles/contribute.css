@@ -3,7 +3,9 @@ h3{
   padding: 0px;
 }
 
-
+main {
+  flex-grow: 1;
+}
 
 .row .col.s9{
   padding-right: 0px;

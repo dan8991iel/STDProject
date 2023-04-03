@@ -1,5 +1,5 @@
-.tilegridBackground {
-  min-height: 100%;
+.tilegrid-background {
+  height: calc(100% - 3em);
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -15,7 +15,7 @@
   max-width: 100%;
   grid-gap: 1em;
   padding: 1em;
-  height: 100%;
+
   position: relative;
   top: 0;
 }
@@ -24,7 +24,7 @@
   background-color: #fff;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
   border-radius: 3px;
-  padding: 2em; /* change the value of padding to adjust the height of the tile */
+  padding: 2em; 
   cursor: pointer;
 }
 
@@ -58,4 +58,75 @@
 }
 
 
+/* New CSS for search bar and submit button */
 
+.search-container {
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 1em;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-container input[type="search"] {
+  margin-bottom: 0px;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+  background-color:#FFFFFF;
+  height: 80%;
+  font-size: 1.2rem; 
+  flex-grow: 1; 
+  transition: border-color 0.3s;
+  color: #333;
+}
+
+.search-container input[type="search"]::placeholder {
+  color: rgb(27, 27, 27); 
+  
+}
+
+.search-container input[type="search"]:focus {
+  border-color: #999;
+  outline: none;
+}
+
+.search-label {
+  font-size: 1.2rem;
+  margin-right: 1em;
+  color: rgb(20, 20, 20); 
+}
+
+#clear-search-input {
+  padding: 0.5em 1em;
+  margin-left: 1em;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  border:none;
+  display: inline-block;
+  background-color: #e3585d;
+  color: #FFFFFF;
+  text-align: center;
+  height: 100%;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  z-index: 1000;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+#clear-search-input:hover {
+  background-color: #912b2f;
+}
+
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
