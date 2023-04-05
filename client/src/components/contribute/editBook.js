@@ -1,44 +1,28 @@
 async function displayEditBookForm(content) {
     content.innerHTML = await (await fetch('../components/contribute/editBook.html')).text();
     //document.getElementById('editBookForm').addEventListener('submit', submitEditBookForm);
+
+    loadProductTitles();
 }
 
 function submitEditBookForm(event) {
     // ... (content of submitEditBookForm function)
 }
 
-const titleDropDown = document.getElementById(".titleDropDown")
-let i = 0;
-var teststring = "";
-
+function loadProductTitles() {
 fetch('http://127.0.0.1:3000/books',{method:"GET"})
   .then(response => response.json())
   .then(books => {
+    const titleDropDown = document.getElementById("titleDropDown")
     for (let book of books) {
-       // console.log(book.title)
-        //titleDropDown.append(book.title)
-    //   const tile = document.createElement('option');
-    //   tile.classList.add('tile');
-
-    //   const value = document.createElement('value');
-    //   value.textContent = i++;
-    //   console.log(book.title)
-    //   tile.appendChild(value);
-
-    // const title = document.createElement('h2');
-    //   title.textContent = book.title;
-    //   tile.appendChild(title);
-
-
-    //   titleDropDown.appendChild(book.title);
-    const tile = document.createElement('option')
-    tile.classList.add('tile');
-  tile.innerHTML = book.title
-  console.log(book.title)
-  //titleDropDown.appendChild(tile)
+      const tile = document.createElement('option')
+      tile.classList.add('tile');
+      tile.innerHTML = book.title
+      console.log(tile  , titleDropDown)
+      titleDropDown.appendChild(tile)
     }
-    titleDropDown.appendChild(tile)
   });
+}
 
 function searchBook() {
     fetch('http://127.0.0.1:3000/books',{method:"GET"})
