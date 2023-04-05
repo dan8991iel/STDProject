@@ -7,5 +7,6 @@ module.exports = {
     cacheDirectory: ".jest/cache",
     coverageDirectory: ".jest/coverage",
     testPathIgnorePatterns: ["/node_modules/"],
+    testEnvironment: 'node',
     testRegex: "tests/dkn/integration-tests/.*\\.test\\.js$",
   };

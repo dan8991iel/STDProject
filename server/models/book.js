@@ -3,8 +3,14 @@ const Author = require('./author')
 const autoIncrementModelID = require('./counter')
 
 const authorNameSchema = new mongoose.Schema({
-    firstName: String,
-    surname: String
+    firstName: {
+        type: String,
+        required: true,
+    },
+    surname: {
+        type: String,
+        required: true,
+    }
 })
 
 const bookSchema = new mongoose.Schema( {
@@ -24,10 +30,14 @@ const bookSchema = new mongoose.Schema( {
         type: String,
         required: true
     },
-    authors: [{
-        name: authorNameSchema,
-        required: false
-    }],
+    authors: {
+        type:[
+            {
+                name: authorNameSchema,
+            }
+        ],
+        required: true
+    },   
     releaseYear: {
         type: Number,
         max: new Date().getFullYear() + 1,
@@ -39,7 +49,7 @@ const bookSchema = new mongoose.Schema( {
     },
     publisher: {
         type: String,
-        required: true
+        required: false
     }
 })
 

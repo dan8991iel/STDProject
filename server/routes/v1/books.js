@@ -37,6 +37,11 @@ router.post('/', async (request, response) =>{
         edition: request.body.edition,
         publisher: request.body.publisher
     })
+    
+
+    if (book.authors.length === 0) {
+        return response.status(400).json({ message: 'Authors array cannot be empty.' });
+    }
 
     try{
         const newBook = await book.save()
