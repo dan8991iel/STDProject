@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
-const setupDB = require('./mongoConfig');
-const { mongoose , app } = require('../../../../server/server');
+const { mongoose, app, start } = require('../../../../server/server');
 const http = require('http');
 
 describe('Add Book Integration Test', () => {
@@ -8,14 +7,14 @@ describe('Add Book Integration Test', () => {
   const testPort = 3100;
 
   beforeAll(async () => {
-    await setupDB();
+    await start({ useTestDB: true , port: testPort});
     server = http.createServer(app);
     server.listen(testPort);
     global.fetch = fetch;
   });
 
   afterAll(async () => {
-    server.close();
+    await server.close();
     await mongoose.connection.close();
   });
 
