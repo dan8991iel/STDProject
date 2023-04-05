@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const { mongoose, app, start } = require('../../../../server/server');
+const {  app, start, clearDatabase  } = require('../../../../server/server');
 const http = require('http');
 
 const testPort = 3300;
@@ -90,7 +90,10 @@ describe('Add Book Integration Test', () => {
 
   afterAll(async () => {
     await server.close();
-    await mongoose.connection.close();
+  });
+
+  afterEach(async () => {
+    await clearDatabase();
   });
 
   test('submits a new book and receives a success response', async () => {
@@ -116,6 +119,16 @@ describe('Add Book Integration Test', () => {
         expect(savedBook[key]).toEqual(sampleBook[key]);
       }
     });
+  });
+
+  test('tries to add a book with the same isbn twice and receives an error', async () => {
+    // Post the first book with the sample ISBN
+    const firstResponse = await postBook(sampleBook);
+    expect(firstResponse.status).toBe(201);
+  
+    // Try to post the second book with the same ISBN
+    const secondResponse = await postBook(sampleBook);
+    expect(secondResponse.status).toBe(400); // Expect an error (status code 400)
   });
 
   testScenarios.forEach((scenario) => {

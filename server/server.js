@@ -3,11 +3,12 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 const connectDatabase = require('./database/dbConfig');
+const { clearDatabase } = require('./database/test-utils');
 const defaultPort = 3000;
-
 const app = express();
+
 
 app.use(cors());
 app.use(express.json());
@@ -37,5 +38,5 @@ module.exports = {
   start,
   close,
   app,
-  mongoose,
+  clearDatabase,
 };
