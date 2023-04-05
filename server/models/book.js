@@ -17,6 +17,7 @@ const bookSchema = new mongoose.Schema( {
     _id: {
         type: Number,
         required: true,
+        unique: true
     },
     title: {
         type: String,
@@ -28,7 +29,8 @@ const bookSchema = new mongoose.Schema( {
     },
     isbn: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     authors: {
         type:[
