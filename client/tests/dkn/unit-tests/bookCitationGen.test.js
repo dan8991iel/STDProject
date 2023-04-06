@@ -1,26 +1,6 @@
 import { generateCitation } from '../../../src/modules/bookCitationGen.js';
+import { sampleBook } from '../util/sampleBook.js';
 
-
-const exampleBook = {
-    title: 'Example Book',
-    subtitle: 'A Great subtitle',
-    authors: [
-      {
-      name: {
-        firstName: 'John',
-        surname: 'Doe'
-      }
-    },{
-      name: {
-        firstName: 'Sarah Jane',
-        surname: 'Smith'
-      }
-    }],
-    releaseYear: '2022',
-    category: 'Fiction',
-    publisher: 'Example Publisher',
-    edition: '1st',
-  }
 
 
   const testCases = [
@@ -28,9 +8,9 @@ const exampleBook = {
       description: 'with all properties',
       bookModifications: {},
       expectedCitations: {
-        apa: 'Doe, J. & Smith, S. J. (2022). Example Book: A Great subtitle (1st ed.). Example Publisher.',
-        mla: 'Doe, John, and Sarah Jane Smith. Example Book: A Great subtitle. 1st ed., Example Publisher, 2022.',
-        chicago: 'Doe, John, and Sarah Jane Smith. 2022. Example Book: A Great subtitle. 1st ed. Example Publisher.',
+        apa: 'Doe, J. (2022). Sample Title: Sample subtitle (2nd ed.). Sample Publisher.',
+        mla: 'Doe, John. Sample Title: Sample subtitle. 2nd ed., Sample Publisher, 2022.',
+        chicago: 'Doe, John. 2022. Sample Title: Sample subtitle. 2nd ed. Sample Publisher.',
       },
     },
     {
@@ -39,20 +19,20 @@ const exampleBook = {
         authors: undefined,
       },
       expectedCitations: {
-        apa: 'Example Book.(2022). Example Book: A Great subtitle (1st ed.). Example Publisher.',
-        mla: 'Example Book: A Great subtitle. 1st ed., Example Publisher, 2022.',
-        chicago: '2022. Example Book: A Great subtitle. 1st ed. Example Publisher.',
+        apa: 'Sample Title.(2022). Sample Title: Sample subtitle (2nd ed.). Sample Publisher.',
+        mla: 'Sample Title: Sample subtitle. 2nd ed., Sample Publisher, 2022.',
+        chicago: '2022. Sample Title: Sample subtitle. 2nd ed. Sample Publisher.',
       },
     },
     {
       description: 'with all properties and one author',
       bookModifications: {
-        authors: [{name: {firstName: 'John',surname: 'Doe',},},],
+        authors: [{name: {firstName: 'John',surname: 'Doe',},}, {name: {firstName: 'Sarah Jane',surname: 'Smith',},}],
       },
       expectedCitations: {
-        apa: 'Doe, J. (2022). Example Book: A Great subtitle (1st ed.). Example Publisher.',
-        mla: 'Doe, John. Example Book: A Great subtitle. 1st ed., Example Publisher, 2022.',
-        chicago: 'Doe, John. 2022. Example Book: A Great subtitle. 1st ed. Example Publisher.',
+        apa: 'Doe, J. & Smith, S. J. (2022). Sample Title: Sample subtitle (2nd ed.). Sample Publisher.',
+        mla: 'Doe, John, and Sarah Jane Smith. Sample Title: Sample subtitle. 2nd ed., Sample Publisher, 2022.',
+        chicago: 'Doe, John, and Sarah Jane Smith. 2022. Sample Title: Sample subtitle. 2nd ed. Sample Publisher.',
       },
     },
 
@@ -62,9 +42,9 @@ const exampleBook = {
         authors: [{name: {firstName: 'John',surname: 'Doe',},},{name: {firstName: 'Sarah Jane',surname: 'Smith',},},{name: {firstName: 'Michael',surname: 'Brown',},},],
       },
       expectedCitations: {
-        apa: 'Doe, J., Smith, S. J. & Brown, M. (2022). Example Book: A Great subtitle (1st ed.). Example Publisher.',
-        mla: 'Doe, John, et al. Example Book: A Great subtitle. 1st ed., Example Publisher, 2022.',
-        chicago: 'Doe, John, Sarah Jane Smith, and Michael Brown. 2022. Example Book: A Great subtitle. 1st ed. Example Publisher.',
+        apa: 'Doe, J., Smith, S. J. & Brown, M. (2022). Sample Title: Sample subtitle (2nd ed.). Sample Publisher.',
+        mla: 'Doe, John, et al. Sample Title: Sample subtitle. 2nd ed., Sample Publisher, 2022.',
+        chicago: 'Doe, John, Sarah Jane Smith, and Michael Brown. 2022. Sample Title: Sample subtitle. 2nd ed. Sample Publisher.',
       },
     },
     {
@@ -85,7 +65,7 @@ const exampleBook = {
         ],
       },
       expectedCitations: {
-        chicago: 'Aa, A, B Bb, C Cc, D Dd, E Ee, F Ff, G Gg, et al. 2022. Example Book: A Great subtitle. 1st ed. Example Publisher.',
+        chicago: 'Aa, A, B Bb, C Cc, D Dd, E Ee, F Ff, G Gg, et al. 2022. Sample Title: Sample subtitle. 2nd ed. Sample Publisher.',
       },
     },
     {
@@ -94,7 +74,7 @@ const exampleBook = {
         authors: [{name: undefined}],
       },
       expectedCitations: {
-        mla: 'Example Book: A Great subtitle. 1st ed., Example Publisher, 2022.',
+        mla: 'Sample Title: Sample subtitle. 2nd ed., Sample Publisher, 2022.',
       },
     },
     {
@@ -103,7 +83,7 @@ const exampleBook = {
         authors: [{name: undefined},{name: undefined}],
       },
       expectedCitations: {
-        mla: 'Example Book: A Great subtitle. 1st ed., Example Publisher, 2022.',
+        mla: 'Sample Title: Sample subtitle. 2nd ed., Sample Publisher, 2022.',
       },
     },
     {
@@ -112,7 +92,7 @@ const exampleBook = {
         authors: [{name: undefined},{name: undefined},{name: undefined}],
       },
       expectedCitations: {
-        mla: 'Example Book: A Great subtitle. 1st ed., Example Publisher, 2022.',
+        mla: 'Sample Title: Sample subtitle. 2nd ed., Sample Publisher, 2022.',
       },
     },
     {
@@ -121,9 +101,9 @@ const exampleBook = {
         edition: undefined,
       },
       expectedCitations: {
-        apa: 'Doe, J. & Smith, S. J. (2022). Example Book: A Great subtitle. Example Publisher.',
-        mla: 'Doe, John, and Sarah Jane Smith. Example Book: A Great subtitle. Example Publisher, 2022.',
-        chicago: 'Doe, John, and Sarah Jane Smith. 2022. Example Book: A Great subtitle. Example Publisher.',
+        apa: 'Doe, J. (2022). Sample Title: Sample subtitle. Sample Publisher.',
+        mla: 'Doe, John. Sample Title: Sample subtitle. Sample Publisher, 2022.',
+        chicago: 'Doe, John. 2022. Sample Title: Sample subtitle. Sample Publisher.',
       },
     },
     {
@@ -132,9 +112,9 @@ const exampleBook = {
         releaseYear: undefined,
       },
       expectedCitations: {
-        apa: 'Doe, J. & Smith, S. J. (o. J.). Example Book: A Great subtitle (1st ed.). Example Publisher.',
-        mla: 'Doe, John, and Sarah Jane Smith. Example Book: A Great subtitle. 1st ed., Example Publisher, o. J..',
-        chicago: 'Doe, John, and Sarah Jane Smith. o. J.. Example Book: A Great subtitle. 1st ed. Example Publisher.',
+        apa: 'Doe, J. (o. J.). Sample Title: Sample subtitle (2nd ed.). Sample Publisher.',
+        mla: 'Doe, John. Sample Title: Sample subtitle. 2nd ed., Sample Publisher, o. J..',
+        chicago: 'Doe, John. o. J.. Sample Title: Sample subtitle. 2nd ed. Sample Publisher.',
       },
     },
     {
@@ -143,9 +123,9 @@ const exampleBook = {
         subtitle: undefined,
       },
       expectedCitations: {
-        apa: 'Doe, J. & Smith, S. J. (2022). Example Book (1st ed.). Example Publisher.',
-        mla: 'Doe, John, and Sarah Jane Smith. Example Book. 1st ed., Example Publisher, 2022.',
-        chicago: 'Doe, John, and Sarah Jane Smith. 2022. Example Book. 1st ed. Example Publisher.',
+        apa: 'Doe, J. (2022). Sample Title (2nd ed.). Sample Publisher.',
+        mla: 'Doe, John. Sample Title. 2nd ed., Sample Publisher, 2022.',
+        chicago: 'Doe, John. 2022. Sample Title. 2nd ed. Sample Publisher.',
       },
     }
   ];
@@ -154,7 +134,7 @@ const exampleBook = {
   const generateTestCase = (description, bookModifications, expectedCitations) => {
     Object.keys(expectedCitations).forEach((style) => {
       test(`${style.toUpperCase()} citation style - ${description}`, () => {
-        const modifiedBook = { ...exampleBook, ...bookModifications };
+        const modifiedBook = { ...sampleBook, ...bookModifications };
         const citation = generateCitation(style, modifiedBook);
         expect(citation).toBe(expectedCitations[style]);
       });
@@ -177,7 +157,7 @@ const exampleBook = {
   });
   
   test('Unsupported citation style', () => {
-    expect(generateCitation('unsupportedStyle', exampleBook)).toBe('');
+    expect(generateCitation('unsupportedStyle', sampleBook)).toBe('');
   });
 
 
@@ -204,93 +184,93 @@ const exampleBook = {
 
 /*
   test('APA citation style', () => {
-    const citation = generateCitation('apa', exampleBook);
-    expect(citation).toBe('Doe, J. & Smith, S. J. (2022). Example Book: A Great subtitle (1st ed.). Example Publisher.');
+    const citation = generateCitation('apa', sampleBook);
+    expect(citation).toBe('Doe, J. & Smith, S. J. (2022). Sample Title: Sample subtitle (2nd ed.). Sample Publisher.');
   });
   
   test('MLA citation style', () => {
-    const citation = generateCitation('mla', exampleBook);
-    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Example Book: A Great subtitle. 1st ed., Example Publisher, 2022.');
+    const citation = generateCitation('mla', sampleBook);
+    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Sample Title: Sample subtitle. 2nd ed., Sample Publisher, 2022.');
   });
   
   test('Chicago citation style', () => {
-    const citation = generateCitation('chicago', exampleBook);
-    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Example Book: A Great subtitle. 1st ed. Example Publisher, 2022.');
+    const citation = generateCitation('chicago', sampleBook);
+    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Sample Title: Sample subtitle. 2nd ed. Sample Publisher, 2022.');
   });
 
   test('APA citation style - missing year', () => {
-    const {releaseYear, ...exampleBookMissingYear} = exampleBook;
-    const citation = generateCitation('apa', exampleBookMissingYear);
-    expect(citation).toBe('Doe, J. & Smith, S. J. (o. J.). Example Book: A Great subtitle (1st ed.). Example Publisher.');
+    const {releaseYear, ...sampleBookMissingYear} = sampleBook;
+    const citation = generateCitation('apa', sampleBookMissingYear);
+    expect(citation).toBe('Doe, J. & Smith, S. J. (o. J.). Sample Title: Sample subtitle (2nd ed.). Sample Publisher.');
   });
   
   test('MLA citation style - missing year', () => {
-    const {releaseYear, ...exampleBookMissingYear} = exampleBook;
-    const citation = generateCitation('mla', exampleBookMissingYear);
-    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Example Book: A Great subtitle. 1st ed., Example Publisher, o. J..');
+    const {releaseYear, ...sampleBookMissingYear} = sampleBook;
+    const citation = generateCitation('mla', sampleBookMissingYear);
+    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Sample Title: Sample subtitle. 2nd ed., Sample Publisher, o. J..');
   });
   
   test('Chicago citation style - missing year', () => {
-    const {releaseYear, ...exampleBookMissingYear} = exampleBook;
-    const citation = generateCitation('chicago', exampleBookMissingYear);
-    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Example Book: A Great subtitle. 1st ed. Example Publisher, o. J..');
+    const {releaseYear, ...sampleBookMissingYear} = sampleBook;
+    const citation = generateCitation('chicago', sampleBookMissingYear);
+    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Sample Title: Sample subtitle. 2nd ed. Sample Publisher, o. J..');
   });
   
   test('APA citation style - missing authors', () => {
-    const {authors, ...exampleBookMissingAuthors} = exampleBook;
-    const citation = generateCitation('apa', exampleBookMissingAuthors);
-    expect(citation).toBe('Example Book.(2022). Example Book: A Great subtitle (1st ed.). Example Publisher.');
+    const {authors, ...sampleBookMissingAuthors} = sampleBook;
+    const citation = generateCitation('apa', sampleBookMissingAuthors);
+    expect(citation).toBe('Sample Title.(2022). Sample Title: Sample subtitle (2nd ed.). Sample Publisher.');
   });
   
   test('MLA citation style - missing authors', () => {
-    const {authors, ...exampleBookMissingAuthors} = exampleBook;
-    const citation = generateCitation('mla', exampleBookMissingAuthors);
-    expect(citation).toBe('Example Book: A Great subtitle. 1st ed., Example Publisher, 2022.');
+    const {authors, ...sampleBookMissingAuthors} = sampleBook;
+    const citation = generateCitation('mla', sampleBookMissingAuthors);
+    expect(citation).toBe('Sample Title: Sample subtitle. 2nd ed., Sample Publisher, 2022.');
   });
   
   test('Chicago citation style - missing authors', () => {
-    const {authors, ...exampleBookMissingAuthors} = exampleBook;
-    const citation = generateCitation('chicago', exampleBookMissingAuthors);
-    expect(citation).toBe('Example Book: A Great subtitle. 1st ed. Example Publisher, 2022.');
+    const {authors, ...sampleBookMissingAuthors} = sampleBook;
+    const citation = generateCitation('chicago', sampleBookMissingAuthors);
+    expect(citation).toBe('Sample Title: Sample subtitle. 2nd ed. Sample Publisher, 2022.');
   });
 
   test('APA citation style - missing edition', () => {
-    const {edition, ...exampleBookMissingEdition} = exampleBook;
-    const citation = generateCitation('apa', exampleBookMissingEdition);
-    expect(citation).toBe('Doe, J. & Smith, S. J. (2022). Example Book: A Great subtitle. Example Publisher.');
+    const {edition, ...sampleBookMissingEdition} = sampleBook;
+    const citation = generateCitation('apa', sampleBookMissingEdition);
+    expect(citation).toBe('Doe, J. & Smith, S. J. (2022). Sample Title: Sample subtitle. Sample Publisher.');
   });
   
   test('MLA citation style - missing edition', () => {
-    const {edition, ...exampleBookMissingEdition} = exampleBook;
-    const citation = generateCitation('mla', exampleBookMissingEdition);
-    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Example Book: A Great subtitle. Example Publisher, 2022.');
+    const {edition, ...sampleBookMissingEdition} = sampleBook;
+    const citation = generateCitation('mla', sampleBookMissingEdition);
+    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Sample Title: Sample subtitle. Sample Publisher, 2022.');
   });
   
   test('Chicago citation style - missing edition', () => {
-    const {edition, ...exampleBookMissingEdition} = exampleBook;
-    const citation = generateCitation('chicago', exampleBookMissingEdition);
-    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Example Book: A Great subtitle. Example Publisher, 2022.');
+    const {edition, ...sampleBookMissingEdition} = sampleBook;
+    const citation = generateCitation('chicago', sampleBookMissingEdition);
+    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Sample Title: Sample subtitle. Sample Publisher, 2022.');
   });
 
   test('APA citation style - missing subtitle', () => {
-    const {subtitle, ...exampleBookMissingsubtitle} = exampleBook;
-    const citation = generateCitation('apa', exampleBookMissingsubtitle);
-    expect(citation).toBe('Doe, J. & Smith, S. J. (2022). Example Book (1st ed.). Example Publisher.');
+    const {subtitle, ...sampleBookMissingsubtitle} = sampleBook;
+    const citation = generateCitation('apa', sampleBookMissingsubtitle);
+    expect(citation).toBe('Doe, J. & Smith, S. J. (2022). Sample Title (2nd ed.). Sample Publisher.');
   });
 
   test('MLA citation style - missing subtitle', () => {
-    const {subtitle, ...exampleBookMissingsubtitle} = exampleBook;
-    const citation = generateCitation('mla', exampleBookMissingsubtitle);
-    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Example Book. 1st ed., Example Publisher, 2022.');
+    const {subtitle, ...sampleBookMissingsubtitle} = sampleBook;
+    const citation = generateCitation('mla', sampleBookMissingsubtitle);
+    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Sample Title. 2nd ed., Sample Publisher, 2022.');
   });
   
   test('Chicago citation style - missing subtitle', () => {
-    const {subtitle, ...exampleBookMissingsubtitle} = exampleBook;
-    const citation = generateCitation('chicago', exampleBookMissingsubtitle);
-    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Example Book. 1st ed. Example Publisher, 2022.');
+    const {subtitle, ...sampleBookMissingsubtitle} = sampleBook;
+    const citation = generateCitation('chicago', sampleBookMissingsubtitle);
+    expect(citation).toBe('Doe, John, and Sarah Jane Smith. Sample Title. 2nd ed. Sample Publisher, 2022.');
   });
 
   test('Unsupported citation style', () => {
-    expect(generateCitation('unsupportedStyle', exampleBook)).toBe('');
+    expect(generateCitation('unsupportedStyle', sampleBook)).toBe('');
   });
   */

@@ -1,6 +1,9 @@
+import { sampleBook } from '../util/sampleBook.js';
+
 const fetch = require('node-fetch');
 const {  app, start, clearDatabase  } = require('../../../../server/server');
 const http = require('http');
+
 
 const testPort = 3300;
 const baseUrl = `http://127.0.0.1:${testPort}/books`;
@@ -19,15 +22,7 @@ const postBook = async (bookData, submitAsXML = false, submitEmpty = false) => {
   });
 };
 
-const sampleBook = {
-  title: 'Sample Title',
-  subtitle: 'Sample subtitle',
-  isbn: '1234567890',
-  authors: [{ name: { firstName: 'John', surname: 'Doe' } }],
-  releaseYear: 2022,
-  edition: '2nd',
-  publisher: 'Sample Publisher',
-};
+
 
 const testScenarios = [
   {
