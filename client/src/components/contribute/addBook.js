@@ -1,4 +1,5 @@
 import { showPopup } from './popup.js';
+import { serverURL } from '../../../config.js';
 
 async function displayAddBookForm(content) {
     content.innerHTML = await (await fetch('../components/contribute/addBook.html')).text();
@@ -35,7 +36,7 @@ async function submitAddBookForm(event) {
     };
     
     try {
-        const response = await fetch('http://127.0.0.1:3000/books', {
+        const response = await fetch(`${serverURL}/books`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
