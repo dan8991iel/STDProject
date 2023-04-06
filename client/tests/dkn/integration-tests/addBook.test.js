@@ -5,11 +5,17 @@ const http = require('http');
 const testPort = 3300;
 const baseUrl = `http://127.0.0.1:${testPort}/books`;
 
-const postBook = async (bookData) => {
+const postBook = async (bookData, submitAsXML = false, submitEmpty = false) => {
+  const headers = submitAsXML
+    ? { 'Content-Type': 'application/xml' }
+    : { 'Content-Type': 'application/json' };
+
+  const body = submitEmpty ? null : JSON.stringify(bookData);
+
   return fetch(baseUrl, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(bookData),
+    headers: headers,
+    body: body,
   });
 };
 
@@ -25,32 +31,49 @@ const sampleBook = {
 
 const testScenarios = [
   {
+    description: 'submits XML data',
+    submitAsXML: true,
+    expectError: true,
+    errorMessage: 'Invalid content type. Expected application/json.'
+  },
+  {
+    description: 'submits a request with no data',
+    submitEmpty: true,
+    expectError: true,
+    errorMessage: 'Empty request body.'
+  },
+  {
     description: 'submits a book with missing title',
     fieldToRemove: 'title',
-    expectError: true
+    expectError: true,
+    errorMessage: 'Missing required field: title.'
   },
   {
     description: 'submits a book with missing ISBN',
     fieldToRemove: 'isbn',
-    expectError: true
+    expectError: true,
+    errorMessage: 'Missing required field: isbn.'
   },
   {
     description: 'submits a book missing authors',
     fieldToRemove: 'authors',
+    newValue: [],
     expectError: true,
-    newValue: []
+    errorMessage: 'Authors array cannot be empty.'
   },
   {
     description: 'submits a book with author missing their first name',
-    fieldToRemove: 'authors',
+    fieldToRemove: 'authors',  
+    newValue: [{ name: { firstName: '', surname: 'Doe' } }],
     expectError: true,
-    newValue: [{ name: { firstName: '', surname: 'Doe' } }]
+    errorMessage: 'Author 1 is missing a first name.'
   },
   {
     description: 'submits a book with missing author surname',
     fieldToRemove: 'authors',
+    newValue: [{ name: { firstName: 'John' } }],
     expectError: true,
-    newValue: [{ name: { firstName: 'John' } }]
+    errorMessage: 'Author 1 is missing a surname.'
   },
   {
     description: 'submits a book with missing subtitle',
@@ -65,8 +88,16 @@ const testScenarios = [
   {
     description: 'submits a book with invalid release year',
     fieldToRemove: 'releaseYear',
+    newValue: 'invalid_year',
     expectError: true,
-    newValue: 'invalid_year'
+    errorMessage: 'Release year must be a number.'
+  },
+  {
+    description: 'submits a book with release year in the far future',
+    fieldToRemove: 'releaseYear',
+    newValue: new Date().getFullYear() + 2,
+    expectError: true,
+    errorMessage: 'Release year cannot be more than the current year + 1.',
   },
   {
     description: 'submits a book with missing release year',
@@ -122,13 +153,13 @@ describe('Add Book Integration Test', () => {
   });
 
   test('tries to add a book with the same isbn twice and receives an error', async () => {
-    // Post the first book with the sample ISBN
+
     const firstResponse = await postBook(sampleBook);
     expect(firstResponse.status).toBe(201);
   
-    // Try to post the second book with the same ISBN
+
     const secondResponse = await postBook(sampleBook);
-    expect(secondResponse.status).toBe(400); // Expect an error (status code 400)
+    expect(secondResponse.status).toBe(400); 
   });
 
   testScenarios.forEach((scenario) => {
@@ -137,77 +168,15 @@ describe('Add Book Integration Test', () => {
         ...sampleBook, [scenario.fieldToRemove]: scenario.hasOwnProperty('newValue')? scenario.newValue: undefined,
       };
 
-      const response = await postBook(bookData);
+      const response = await postBook(bookData, scenario.submitAsXML, scenario.submitEmpty);
     
       if (scenario.expectError) {
         expect(response.status).toBe(400);
+        const errorResponse = await response.json();
+        expect(errorResponse.message).toBe(scenario.errorMessage);
       } else {
         expect(response.status).toBe(201);
       }
     });
   });
 });
-
-/*
-test('submits a book with missing title and receives an error response', async () => {
-  const { title, ...bookWithoutTitle } = sampleBook;
-  const response = await postBook(bookWithoutTitle);
-  expect(response.status).toBe(400);
-});
-
-test('submits a book with missing ISBN and receives an error response', async () => {
-  const { isbn, ...bookWithoutISBN } = sampleBook;
-  const response = await postBook(bookWithoutISBN);
-  expect(response.status).toBe(400);
-});
-
-test('submits a book missing authors and receives an error response', async () => {
-  const bookWithoutAuthors = { ...sampleBook, authors: [] };
-const response = await postBook(bookWithoutAuthors);
-expect(response.status).toBe(400);
-});
-
-test('submits a book with author missing their first name and receives an error response', async () => {
-  const bookWithMissingFirstName = {
-    ...sampleBook,
-    authors: [{ name: { firstName: '', surname: 'Doe' } }],
-  };
-  const response = await postBook(bookWithMissingFirstName);
-  expect(response.status).toBe(400);
-});
-
-test('submits a book with missing author surname and receives an error response', async () => {
-  const bookWithIncompleteAuthor = {
-    ...sampleBook,
-    authors: [{ name: { firstName: 'John' } }],
-  };
-  const response = await postBook(bookWithIncompleteAuthor);
-  expect(response.status).toBe(400);
-});
-
-test('submits a book with missing subtitle and receives a success response', async () => {
-  const { subtitle, ...bookWithoutSubtitle } = sampleBook;
-  const response = await postBook(bookWithoutSubtitle);
-  expect(response.status).toBe(201);
-});
-
-test('submits a book with missing publisher and receives a success response', async () => {
-  const { publisher, ...bookWithoutPublisher } = sampleBook;
-  const response = await postBook(bookWithoutPublisher);
-  expect(response.status).toBe(201);
-});
-
-test('submits a book with invalid release year and receives an error response', async () => {
-  const bookWithInvalidYear = {
-    ...sampleBook,
-    releaseYear: 'invalid_year',
-  };
-  const response = await postBook(bookWithInvalidYear);
-  expect(response.status).toBe(400);
-});
-
-test('submits a book with missing edition and receives a success response', async () => {
-  const { edition, ...bookWithoutEdition } = sampleBook;
-  const response = await postBook(bookWithoutEdition);
-  expect(response.status).toBe(201);
-});*/
