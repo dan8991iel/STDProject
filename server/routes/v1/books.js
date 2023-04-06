@@ -27,6 +27,46 @@ router.get('/:id', getBook, async (request, response) =>{
 
 // Create a new book (POST)
 router.post('/', async (request, response) =>{
+    if (request.header('Content-Type') !== 'application/json') {
+        return response.status(400).json({ message: 'Invalid content type. Expected application/json.' });
+    }
+
+    if (Object.keys(request.body).length === 0) {
+        return response.status(400).json({ message: 'Empty request body.' });
+    }
+
+    const { title, subtitle, isbn, authors, releaseYear, edition, publisher } = request.body;
+
+    if (!title) {
+        return response.status(400).json({ message: 'Missing required field: title.' });
+    }
+
+    if (!isbn) {
+        return response.status(400).json({ message: 'Missing required field: isbn.' });
+    }
+
+    if (!authors || authors.length === 0) {
+        return response.status(400).json({ message: 'Authors array cannot be empty.' });
+    }
+
+    for (let i = 0; i < authors.length; i++) {
+        if (!authors[i].name.firstName || authors[i].name.firstName === '') {
+          return response.status(400).json({ message: `Author ${i + 1} is missing a first name.` });
+        }
+    
+        if (!authors[i].name.surname || authors[i].name.surname === '') {
+          return response.status(400).json({ message: `Author ${i + 1} is missing a surname.` });
+        }
+      }
+    
+      if (typeof releaseYear !== 'undefined' && isNaN(releaseYear)) {
+        return response.status(400).json({ message: 'Release year must be a number.' });
+      }
+    
+      if (typeof releaseYear !== 'undefined' && parseInt(releaseYear) > new Date().getFullYear() + 1) {
+        return response.status(400).json({ message: 'Release year cannot be more than the current year + 1.' });
+      }
+
     const book = new Book({
         _id: 999, // only temporary, is overwritten pre-save
         title: request.body.title,
@@ -38,10 +78,6 @@ router.post('/', async (request, response) =>{
         publisher: request.body.publisher
     })
     
-
-    if (book.authors.length === 0) {
-        return response.status(400).json({ message: 'Authors array cannot be empty.' });
-    }
 
     try{
         const newBook = await book.save()
