@@ -1,9 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { sampleBook } from '../util/sampleBook.js';
 
-
-const {  app, start, clearDatabase  } = require('../../../../server/server');
-const http = require('http');
+import { app, start, clearDatabase } from '../../../../server/server';
+import http from 'http';
 
 const pageURL = `http://127.0.0.1:5500/client/src/pages/books.html`;
 const testPort = 3000;
@@ -12,12 +11,12 @@ const testPort = 3000;
 test.describe('Add book form', () => {
   let server;
 
-  test.beforeAll(async ({ page }) => {
+  test.beforeAll(async () => {
     await start({ useTestDB: true, port: testPort });
     server = http.createServer(app);
   });
 
-  test.afterAll(async ({ page }) => {
+  test.afterAll(async () => {
     await server.close();
   });
   
@@ -25,7 +24,7 @@ test.describe('Add book form', () => {
     await page.goto(pageURL);
   });
 
-  test.afterEach(async ({ page }) => {
+  test.afterEach(async () => {
     await clearDatabase();
   });
 
@@ -52,35 +51,3 @@ test.describe('Add book form', () => {
     await page.click('.ok-button');
   });
 });
-
-/*
-test('test', async ({ page }) => {
-  await page.goto('http://127.0.0.1:5500/client/src/pages/books.html');
-  await page.getByRole('link', { name: 'Contribute' }).click();
-
-  await page.getByPlaceholder('Example: The Catcher in the Rye').fill('Sample Title');
-
-
-  await page.getByPlaceholder('Example: A Novel').fill('Sample Subtitle');
-
-  await page.getByPlaceholder('Example: 9780316769488').fill('1234567891011');
-
-  await page.getByPlaceholder('Example: John').fill('John');
-
-  await page.getByPlaceholder('Example: Doe').fill('Doe');
-
-  await page.getByPlaceholder('Example: 1951').fill('2022');
-
-  await page.getByPlaceholder('Example: 1, 2, 3, 4, ...').fill('2');
-
-  await page.getByPlaceholder('Example: Little, Brown and Company').fill('Sample Publisher');
-
-  page.once('dialog', dialog => {
-    console.log(`Dialog message: ${dialog.message()}`);
-    dialog.accept().catch(() => {});
-  });
-
-  await page.getByRole('button', { name: 'Submit' }).click();
-
-  
-});*/
