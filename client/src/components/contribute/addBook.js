@@ -1,3 +1,5 @@
+import { showPopup } from './popup.js';
+
 async function displayAddBookForm(content) {
     content.innerHTML = await (await fetch('../components/contribute/addBook.html')).text();
     setupEventListeners();
@@ -31,8 +33,6 @@ async function submitAddBookForm(event) {
         edition,
         publisher,
     };
-    console.log(bookData);
-    console.log(JSON.stringify(bookData));
     
     try {
         const response = await fetch('http://127.0.0.1:3000/books', {
@@ -43,15 +43,19 @@ async function submitAddBookForm(event) {
             body: JSON.stringify(bookData),
         });
 
+        const resJSON = await response.json();
+
+
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}, Error Message: ${resJSON.message}`);
         }
 
-        alert('Book successfully added!');
+        
+        showPopup(`Das Buch ${resJSON['title']}${resJSON['subtitle']?': '+resJSON['subtitle']:''} wurde erfolgreich hinzugefügt!`);
         event.target.reset();
     } catch (error) {
         console.error('Error:', error);
-        alert('Failed to add the book. Please try again.');
+        showPopup(`Failed to add the book. Please try again.\n ${error} `);
     }
 }
 
