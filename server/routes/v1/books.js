@@ -31,6 +31,17 @@ router.post('/', async (request, response) =>{
         return response.status(400).json({ message: 'Invalid content type. Expected application/json.' });
     }
 
+    let isJSON = true;
+    try {
+        JSON.parse(JSON.stringify(request.body));
+    } catch (error) {
+        isJSON = false;
+    }
+
+    if (!isJSON) {
+        return response.status(400).json({ message: 'Request body is not valid JSON.' });
+    }
+
     if (Object.keys(request.body).length === 0) {
         return response.status(400).json({ message: 'Empty request body.' });
     }
