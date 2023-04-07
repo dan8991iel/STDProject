@@ -1,4 +1,6 @@
 import { sampleBook } from '../util/sampleBook.js';
+import { submitBookData } from '../../../src/components/contribute/addBook';
+const { convertToXML } = require('../util/xmlUtils');
 
 const fetch = require('node-fetch');
 const {  app, start, clearDatabase  } = require('../../../../server/server');
@@ -7,22 +9,6 @@ const http = require('http');
 
 const testPort = 3300;
 const baseUrl = `http://127.0.0.1:${testPort}/books`;
-
-const postBook = async (bookData, submitAsXML = false, submitEmpty = false) => {
-  const headers = submitAsXML
-    ? { 'Content-Type': 'application/xml' }
-    : { 'Content-Type': 'application/json' };
-
-  const body = submitEmpty ? null : JSON.stringify(bookData);
-
-  return fetch(baseUrl, {
-    method: 'POST',
-    headers: headers,
-    body: body,
-  });
-};
-
-
 
 const testScenarios = [
   {
@@ -123,7 +109,7 @@ describe('Add Book Integration Test', () => {
   });
 
   test('submits a new book and receives a success response', async () => {
-    const response = await postBook(sampleBook);
+    const response = await submitBookData(sampleBook, testPort);
 
     expect(response.status).toBe(201);
     const savedBook = await response.json();
@@ -149,21 +135,29 @@ describe('Add Book Integration Test', () => {
 
   test('tries to add a book with the same isbn twice and receives an error', async () => {
 
-    const firstResponse = await postBook(sampleBook);
+    const firstResponse = await submitBookData(sampleBook, testPort);
     expect(firstResponse.status).toBe(201);
   
 
-    const secondResponse = await postBook(sampleBook);
+    const secondResponse = await submitBookData(sampleBook, testPort);
     expect(secondResponse.status).toBe(400); 
   });
 
   testScenarios.forEach((scenario) => {
     test(`${scenario.description} and receives ${scenario.expectError ? 'an error' : 'a success'} response`, async () => {
-      const bookData = {
+      let bookData = {
         ...sampleBook, [scenario.fieldToRemove]: scenario.hasOwnProperty('newValue')? scenario.newValue: undefined,
       };
 
-      const response = await postBook(bookData, scenario.submitAsXML, scenario.submitEmpty);
+      if(scenario.submitAsXML){
+        bookData = convertToXML(bookData);
+      }
+
+      if(scenario.submitEmpty){
+        bookData={};
+      }
+
+      const response =  await submitBookData(bookData, testPort, scenario.submitAsXML ? 'application/xml':undefined);
     
       if (scenario.expectError) {
         expect(response.status).toBe(400);
