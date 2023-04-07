@@ -13,11 +13,11 @@ test.describe('Add book form', () => {
 
   test.beforeAll(async () => {
     await start({ useTestDB: true, port: testPort });
-    server = http.createServer(app);
+    //server = http.createServer(app);
   });
 
   test.afterAll(async () => {
-    await server.close();
+    //await server.close();
   });
   
   test.beforeEach(async ({ page }) => {
