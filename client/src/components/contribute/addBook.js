@@ -10,6 +10,30 @@ async function displayAddBookForm(content) {
 async function submitAddBookForm(event) {
     event.preventDefault();
 
+    const bookData = collectBookDataFromForm();
+
+    
+    
+    try {
+        const response = await submitBookData(bookData);
+
+        const resJSON = await response.json();
+
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}, Error Message: ${resJSON.message}`);
+        }
+
+        
+        showPopup(`Das Buch ${resJSON['title']}${resJSON['subtitle']?': '+resJSON['subtitle']:''} wurde erfolgreich hinzugefügt!`);
+        event.target.reset();
+    } catch (error) {
+        console.error('Error:', error);
+        showPopup(`Failed to add the book. Please try again.\n ${error} `);
+    }
+}
+
+function collectBookDataFromForm() {
     const title = document.getElementById('title').value;
     const subtitle = document.getElementById('subtitle').value;
     const isbn = document.getElementById('isbn').value;
@@ -34,30 +58,19 @@ async function submitAddBookForm(event) {
         edition,
         publisher,
     };
-    
-    try {
-        const response = await fetch(`${serverURL}/books`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(bookData),
-        });
+    return bookData;
+  }
 
-        const resJSON = await response.json();
+async function submitBookData(bookData, serverPort = 3000, contentType = 'application/json') {
+const response = await fetch(`${serverURL}:${serverPort}/books`, {
+    method: 'POST',
+    headers: {
+    'Content-Type': contentType,
+    },
+    body: JSON.stringify(bookData),
+});
 
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}, Error Message: ${resJSON.message}`);
-        }
-
-        
-        showPopup(`Das Buch ${resJSON['title']}${resJSON['subtitle']?': '+resJSON['subtitle']:''} wurde erfolgreich hinzugefügt!`);
-        event.target.reset();
-    } catch (error) {
-        console.error('Error:', error);
-        showPopup(`Failed to add the book. Please try again.\n ${error} `);
-    }
+return response;
 }
 
 function setupEventListeners() {
@@ -127,4 +140,4 @@ function addOrdinalSuffix(number){
     return number + "th";
 }
 
-export { displayAddBookForm, submitAddBookForm };
+export { displayAddBookForm, submitAddBookForm, submitBookData };
