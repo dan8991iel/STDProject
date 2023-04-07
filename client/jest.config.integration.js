@@ -1,7 +1,7 @@
 module.exports = {
     clearMocks: true,
     maxWorkers: "50%",
-    collectCoverage: true,
+    collectCoverage: false,
     coverageProvider: "v8",
     testEnvironment: "node",
     cacheDirectory: ".jest/cache",
