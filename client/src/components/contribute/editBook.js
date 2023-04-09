@@ -14,33 +14,82 @@ async function displayEditBookForm(content) {
     loadProductTitles();
 
     const areaSelect = document.getElementById('titleDropDown');
-    areaSelect.addEventListener(`change`, (e) => {
-      const select = e.target;
-      const selectedTitle = select.value;
-      console.log(title)
-      fetch('http://127.0.0.1:3000/books',{method:"GET"})
-      .then(response => response.json())
-      .then(books => {
-      for (let book of books) {       
-        if(book.title.includes(selectedTitle)){
-          title.setAttribute('value', book.title);
-          subtitle.setAttribute('value', book.subtitle);
-          isbn.setAttribute('value', book.isbn);
-          authorFirstName.setAttribute('value', book.authorFirstName);
-          authorLastName.setAttribute('value', book.authorLastName);
-          releaseYear.setAttribute('value', book.releaseYear);
-          edition.setAttribute('value', book.edition);
-          publisher.setAttribute('value', book.publisher);
-      }
-    }
-  });
+    console.log(areaSelect)
 
-    });
+    getBookDetails(areaSelect)
+    
     //document.getElementById('titleDropDown').addEventListener('change', submitEditBookForm);
 }
 
 function submitEditBookForm(event) {
     // ... (content of submitEditBookForm function)
+}
+
+function getBookDetails(areaSelect){
+  areaSelect.addEventListener(`change`, (e) => {
+    const select = e.target;
+    const selectedTitle = select.value;
+    console.log(title)
+    fetch('http://127.0.0.1:3000/books',{method:"GET"})
+    .then(response => response.json())
+    .then(books => {
+    for (let book of books) {       
+      if(book.title.includes(selectedTitle)){
+        title.setAttribute('value', book.title);
+        subtitle.setAttribute('value', book.subtitle);
+        isbn.setAttribute('value', book.isbn);
+        authorFirstName.setAttribute('value', book.authors.firstName);
+        authorLastName.setAttribute('value', book.authors.name.surname);
+        releaseYear.setAttribute('value', book.releaseYear);
+        edition.setAttribute('value', book.edition);
+        publisher.setAttribute('value', book.publisher);
+        return book;
+    }
+  }
+});
+
+  });
+}
+
+function submit(){
+  title = document.getElementById('title');
+  subtitle = document.getElementById('subtitle');
+  isbn = document.getElementById('isbn');
+  authorFirstName = document.getElementById('authorFirstName-1');
+  authorLastName = document.getElementById('authorLastName-1');
+  releaseYear = document.getElementById('releaseYear');
+  edition = document.getElementById('edition');
+  publisher = document.getElementById('publisher');
+
+  const bookData = {
+    title,
+    subtitle,
+    isbn,
+    authors,
+    releaseYear: parseInt(releaseYear, 10),
+    edition,
+    publisher,
+};
+
+  try {
+    const response = fetch('http://127.0.0.1:3000/books/1', {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookData),
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    alert('Book successfully added!');
+    event.target.reset();
+} catch (error) {
+    console.error('Error:', error);
+    alert('Failed to add the book. Please try again.');
+}
 }
 
 function loadProductTitles() {
@@ -101,5 +150,4 @@ window.onload = function() {
 })
 }
 
-
-export { displayEditBookForm, searchBook, getDropdown };
+export { displayEditBookForm, searchBook, getDropdown, submit, getBookDetails };

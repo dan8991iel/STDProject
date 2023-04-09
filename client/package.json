@@ -23,6 +23,7 @@
   },
   "scripts": {
     "test:dkn:unit": "jest --config jest.config.unit.js",
-    "test:dkn:integration": "jest --config jest.config.integration.js --detectOpenHandles --forceExit"
+    "test:dkn:integration": "jest --config jest.config.integration.js --detectOpenHandles --forceExit",
+    "test:nas:integration": "jest"
   }
 }
