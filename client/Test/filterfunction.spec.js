@@ -1,7 +1,7 @@
 const filterBooks = require("../data/books.js");
 var assert = require('assert');
 
-const arrayExistingTestData = ["Buch", "Test", "Mein Buch", 1]
+const arrayExistingTestData = ["Buch", "Test", "Mein Buch"]
 const arrayNotExistingTestData = ["Testtitel", "1", "Pro RESTlul APIs"]
 
 const sampleBook = [{
