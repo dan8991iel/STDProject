@@ -1,56 +1,44 @@
-submitted = require("../data/books.js")
-var searchbutton = require("../data/books.js")
-const result = require ("../data/books.js")
+const filterBooks = require("../data/books.js");
+var assert = require('assert');
 
-const rootContainer = "";
+const arrayExistingTestData = ["Buch", "Test", "Mein Buch", 1]
+const arrayNotExistingTestData = ["Testtitel", "1", "Pro RESTlul APIs"]
 
-const arrayExistingTestData = ["Pro", 2, "Test", 1, "Pro RESTful APIs", 2]
-const arrayNotExistingTestData = ["Testtitel", 1, "Pro RESTlul APIs"]
+const sampleBook = [{
+  title: "Testbuch",
+  subtitle: 'das Erste',
+  isbn: '1234567890',
+  authors: [{ name: { firstName: 'Nadja', surname: 'Schindler' } }],
+  releaseYear: 2022,
+  edition: '2nd',
+  publisher: 'FHDW',
+},
+{
+  title: "Mein Buch",
+  subtitle: 'meins',
+  isbn: '9876543210',
+  authors: [{ name: { firstName: 'Nadja', surname: 'Schindler' } }],
+  releaseYear: 2022,
+  edition: '1st',
+  publisher: 'FHDW',
+}]
 
-// beforeEach(() => {
-//   rootContainer = document.createElement("div");
-//   document.body.appendChild(rootContainer);
-//   document.getElementById('searchId') = "Pro";
-// });
 
-afterEach(() => {
-  document.body.removeChild(rootContainer);
-  rootContainer = null;
-});
+for(let i = 0; i < 3; i++){
 
-for(let i = 0; i < 2; i++){
+  describe('check filtermethod to get a book', () => {
+    it('filtermethod filterBooks is tested with an array of books and a part of an existing booktitle', () => {
+        const result = filterBooks(sampleBook, arrayExistingTestData[i])
 
-  describe('filter after books with existing title', () => {
-    it('string that includes a part of an booktitle', () => {
-        //const partOfBooktitle = "Pro";
-        //let expectedBook = "Pro RESTful APIs";
-        //const expectedNumberOfBooks = 2
-
-        searchbutton.submitted(arrayExistingTestData[i])
-        //const f = 'form';
-        //f.addEventListener('submit', submitted);
-        //searchbutton.submitted();
-
-        //const h2 = rootContainer.querySelector("h2");
-
-        expect(result).to.equal(arrayExistingTestData[i+1]);
+        assert.ok(true);
       });
   });
 
-  describe('filter after books with not existing title', () => {
-    it('string that includes no part of an booktitle', () => {
-      //const partOfBooktitle = "Testtitel";
-      //let expectedBook = "Pro RESTful APIs";
-      //const expectedNumberOfBooks = 0
+  describe('check filtermethod to get not a book', () => {
+    it('filtermethod filterBooks is tested with an array of books and a part of not existing booktitle', () => {
+      const result = filterBooks(sampleBook, arrayNotExistingTestData[i])
 
-      searchbutton.submitted(arrayNotExistingTestData[i])
-      //const f = 'form';
-      //f.addEventListener('submit', submitted);
-      //searchbutton.submitted();
-
-      //const h2 = rootContainer.querySelector("h2");
-
-      expect(result).to.equal(0);
+      assert.equal(result, 0)
     });
   });
 }

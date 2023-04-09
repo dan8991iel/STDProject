@@ -1,115 +1,94 @@
-const searchForm = document.getElementById('search-form');
-const search = document.getElementById('searchId');
-const tilegrid = document.querySelector('.tilegrid');
+(async () => {
+  const search = document.getElementById('search-input');
+  const tilegrid = document.querySelector('.tilegrid');
+  const clearSearchButton = document.getElementById('clear-search-input');
 
-let counter = 0;
+  search.addEventListener('input', debounce(() => {
+    submitted(search.value);
+  }, 300));
+  
+  clearSearchButton.addEventListener('click', () => clearSearchInput(search));
 
-function submitted(event) {
-  emptyTileGrid()
-  event.preventDefault();
-  const result = []
-  data = fetch('http://127.0.0.1:3000/books',{method:"GET"})
-  .then(response => response.json())
-  .then(books => {
-    console.log(books)
-    if(search.value != null && search.value != ""){
-      for (let book of books) {
-        if(book.title.toLowerCase().includes(search.value.toLowerCase())){
-          result.push(book)
-          emptyTileGrid()
-          searchedBooks()
-          counter ++;
-        }
-      }
-    } else{
-      location.reload()
+  function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+      const context = this;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+  }
+
+  async function submitted(searchText) {
+    try {
+      const books = await fetchBooks();
+      searchText = searchText ? searchText.trim() : searchText;
+      const filteredBooks = searchText ? filterBooks(books, searchText) : books;
+      renderBooks(filteredBooks);
+    } catch (error) {
+      console.error('Error fetching books:', error);
+      // Display an error message or handle the error accordingly
     }
-  })
+  }
 
-  function emptyTileGrid(){
+  async function fetchBooks() {
+    const response = await fetch('http://127.0.0.1:3000/books', { method: "GET" });
+    return response.json();
+  }
+
+ 
+
+  function renderBooks(books) {
+    emptyTileGrid();
+    for (let book of books) {
+      const tile = createBookTile(book);
+      tilegrid.appendChild(tile);
+    }
+  }
+
+  function emptyTileGrid() {
     while (tilegrid.lastElementChild) {
       tilegrid.removeChild(tilegrid.lastElementChild);
     }
   }
-  function searchedBooks() {
-    for (let book of result) {
-      const tile = document.createElement('div');
-      tile.classList.add('tile');
 
-      const title = document.createElement('h2');
-      title.textContent = book.title;
-      tile.appendChild(title);
+  function createBookTile(book) {
+    const tile = document.createElement('div');
+    tile.classList.add('tile');
 
-      const isbn = document.createElement('p');
-      isbn.textContent = 'ISBN: ' + book.isbn;
-      tile.appendChild(isbn);
+    const title = document.createElement('h2');
+    title.textContent = book.title;
+    tile.appendChild(title);
 
-      const authors = document.createElement('p');
-      //authors.textContent = 'Authors: ' + book.authors.join(', ');
-      let authorNames = '';
-      for(let i = 0; i < book.authors.length; i++) {
-        let author = book.authors[i];
-        if(authorNames !== '') {
-          authorNames = authorNames + ', ';
-        }
-        authorNames = authorNames + author.name.firstName + ' ' + author.name.surname;
-      }
-      authors.textContent = 'Autoren: ' + authorNames;
-      tile.appendChild(authors);
+    const isbn = document.createElement('p');
+    isbn.textContent = 'ISBN: ' + book.isbn;
+    tile.appendChild(isbn);
 
-      const releaseYear = document.createElement('p');
-      releaseYear.textContent = 'Veröffentlicht: ' + book.releaseYear;
-      tile.appendChild(releaseYear);
+    const authors = document.createElement('p');
+    const authorNames = book.authors.map(author => `${author.name.firstName} ${author.name.surname}`).join(', ');
+    authors.textContent = 'Autoren: ' + authorNames;
+    tile.appendChild(authors);
 
-      tile.addEventListener('click', () => {
-        window.location.href = window.location.protocol + "//" + window.location.hostname + ":5500"+`/client/pages/bookDetails.html?id=${book._id}`
-      });
+    const releaseYear = document.createElement('p');
+    releaseYear.textContent = 'Veröffentlicht: ' + book.releaseYear;
+    tile.appendChild(releaseYear);
 
-      tilegrid.appendChild(tile);
-    }
+    tile.addEventListener('click', () => {
+      window.location.href = `${window.location.protocol}//${window.location.hostname}:5500/client/src/pages/bookDetails.html?id=${book._id}`;
+    });
+
+    return tile;
   }
+
+  function clearSearchInput(inputElement) {
+    inputElement.value = '';
+    inputElement.dispatchEvent(new Event('input')); // Trigger a search event to update the displayed book tiles
+  }
+
+  await submitted(); // Fetch and display all books on initial page load
+  
+})();
+
+function filterBooks(books, searchText) {
+  return books.filter(book => book.title.includes(searchText.toLowerCase()));
 }
-
- searchForm.addEventListener('submit', submitted);
-
-  console.log("Searchvalue" + search.value)
-  data = fetch('http://127.0.0.1:3000/books',{method:"GET"})
-  .then(response => response.json())
-  .then(books => {
-    for (let book of books) {
-      const tile = document.createElement('div');
-      tile.classList.add('tile');
-
-      const title = document.createElement('h2');
-      title.textContent = book.title;
-      tile.appendChild(title);
-
-      const isbn = document.createElement('p');
-      isbn.textContent = 'ISBN: ' + book.isbn;
-      tile.appendChild(isbn);
-
-      const authors = document.createElement('p');
-      //authors.textContent = 'Authors: ' + book.authors.join(', ');
-      let authorNames = '';
-      for(let i = 0; i < book.authors.length; i++) {
-        let author = book.authors[i];
-        if(authorNames !== '') {
-          authorNames = authorNames + ', ';
-        }
-        authorNames = authorNames + author.name.firstName + ' ' + author.name.surname;
-      }
-      authors.textContent = 'Autoren: ' + authorNames;
-      tile.appendChild(authors);
-
-      const releaseYear = document.createElement('p');
-      releaseYear.textContent = 'Veröffentlicht: ' + book.releaseYear;
-      tile.appendChild(releaseYear);
-
-      tile.addEventListener('click', () => {
-        window.location.href = window.location.protocol + "//" + window.location.hostname + ":5500"+`/client/pages/bookDetails.html?id=${book._id}`
-      });
-
-      tilegrid.appendChild(tile);
-    }
- }) 
- module.exports = submitted(), result
+module.exports = filterBooks
