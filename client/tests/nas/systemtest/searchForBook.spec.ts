@@ -6,13 +6,12 @@ const DELETE_SEARCH_FIELD_INPUT = "#clear-search-input"
 const URL = "http://127.0.0.1:5500/client/src/pages/books.html";
 
 const TESTRUNS = 2
-
-test.describe('search specific book', () => {
-    test('Open books.html, get the title from the first ' + TESTRUNS + ' books, write this title in the searchfield, get the title of the book, which appears and check if the titles are equal', async ({
-        page,
-    }) => {
-        await page.goto(URL);
-        for(let i = 0; i < TESTRUNS; i++){
+for(let i = 0; i < TESTRUNS; i++){
+    test.describe('search specific book', () => {
+        test('Open books.html, get the title from the ' + TESTRUNS + ' book, write this title in the searchfield, get the title of the book, which appears and check if the titles are equal', async ({
+            page,
+        }) => {
+            await page.goto(URL);
             const bookTitle = (await page.locator(LOCATOR_BOOK_TITLE).nth(i).innerText()).toString();
 
             await expect(page.locator(SEARCH_FIELD)).toBeVisible({ timeout: 2000 });
@@ -23,6 +22,6 @@ test.describe('search specific book', () => {
             const searchedBookTitle = (await page.locator(LOCATOR_BOOK_TITLE).nth(0).innerText()).toString();
             expect(bookTitle).toEqual(searchedBookTitle);
             await page.locator(DELETE_SEARCH_FIELD_INPUT).click();
-        }
-    })
-});
+        })
+    });
+}
